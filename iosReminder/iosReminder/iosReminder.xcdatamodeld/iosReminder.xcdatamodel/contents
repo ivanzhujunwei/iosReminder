@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15G31" minimumToolsVersion="Automatic">
+    <entity name="Category" representedClassName=".Category" syncable="YES">
+        <attribute name="color" optional="YES" attributeType="Transformable" valueTransformerName="colorTransformer" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" minValueString="0" maxValueString="180" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" minValueString="0" maxValueString="180" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="radius" optional="YES" attributeType="Integer 16" minValueString="50" maxValueString="1000" defaultValueString="250" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" minValueString="1" syncable="YES"/>
+        <relationship name="reminders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Reminder" inverseName="category" inverseEntity="Reminder" syncable="YES"/>
+    </entity>
+    <entity name="Reminder" representedClassName=".Reminder" syncable="YES">
+        <attribute name="dueDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="reminders" inverseEntity="Category" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Category" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="Reminder" positionX="133" positionY="-33" width="128" height="105"/>
+    </elements>
 </model>
