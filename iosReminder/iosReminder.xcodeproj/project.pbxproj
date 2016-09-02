@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		603187141D7849D100AA904E /* CategoryColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603187131D7849D100AA904E /* CategoryColor.swift */; };
 		60D927B31D76801B00DEC6ED /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D927AF1D76801B00DEC6ED /* Category+CoreDataProperties.swift */; };
 		60D927B41D76801B00DEC6ED /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D927B01D76801B00DEC6ED /* Category.swift */; };
 		60D927B51D76801B00DEC6ED /* Reminder+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D927B11D76801B00DEC6ED /* Reminder+CoreDataProperties.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		603187131D7849D100AA904E /* CategoryColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryColor.swift; sourceTree = "<group>"; };
 		60D927AF1D76801B00DEC6ED /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		60D927B01D76801B00DEC6ED /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		60D927B11D76801B00DEC6ED /* Reminder+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Reminder+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				60D927B01D76801B00DEC6ED /* Category.swift */,
 				60D927B11D76801B00DEC6ED /* Reminder+CoreDataProperties.swift */,
 				60D927B21D76801B00DEC6ED /* Reminder.swift */,
+				603187131D7849D100AA904E /* CategoryColor.swift */,
 			);
 			name = CoreDataModels;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 				60FCC64F1D75C7F500B8DD39 /* CategoryAddViewController.swift in Sources */,
 				60FCC6311D752F9600B8DD39 /* AppDelegate.swift in Sources */,
 				60FCC64D1D75BE6F00B8DD39 /* CategoryViewController.swift in Sources */,
+				603187141D7849D100AA904E /* CategoryColor.swift in Sources */,
 				60FCC6391D752F9600B8DD39 /* iosReminder.xcdatamodeld in Sources */,
 				60D927B41D76801B00DEC6ED /* Category.swift in Sources */,
 				60D927B51D76801B00DEC6ED /* Reminder+CoreDataProperties.swift in Sources */,

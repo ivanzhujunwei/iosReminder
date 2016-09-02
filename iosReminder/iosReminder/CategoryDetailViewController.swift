@@ -10,6 +10,7 @@ import UIKit
 
 class CategoryDetailViewController: UITableViewController {
 
+    var categoryToView: Category?
     override func viewDidLoad() {
         super.viewDidLoad()
 

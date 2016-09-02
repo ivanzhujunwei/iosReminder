@@ -9,14 +9,56 @@
 import UIKit
 import MapKit
 import CoreLocation
+import CoreData
 
 class CategoryAddViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet var categoryName: UITextField!
     @IBOutlet var categoryColor: UISegmentedControl!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet var locationText: UITextField!
+    
+    var managedObjectContext : NSManagedObjectContext?
+    var categoryToAdd : Category?
     
     let locationManager = CLLocationManager()
+    let geocoder = CLGeocoder()
+    
+    @IBAction func addCategory(sender: AnyObject) {
+//        let newCategory = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: managedObjectContext!) as! Category
+//        newCategory.title = categoryName.text
+        // more later
+        // ...
+        self.navigationController?.popViewControllerAnimated(true)
+        
+    }
+    
+    @IBAction func searchLocation(sender: AnyObject) {
+        if let location = locationText.text where !location.isEmpty{
+            geocoder.geocodeAddressString(location, completionHandler: { (placemarks, error) in
+                if error != nil {
+                    // Handle potential errors
+                    if (error?.code == 8) {
+                        // No result found with geocode request
+                        // Show alert to user
+                        self.showAlertWithDismiss("No result found", message: "Unable to provide a location for your search request.")
+                    } else {
+                        // Other error, print to console
+                        print(error?.localizedDescription)
+                    }
+                }
+                // Get the first location result and add to map
+                if let placemark = placemarks?.first {
+                    // Remove existing annotations (if any) from map view
+                    self.mapView.removeAnnotations(self.mapView.annotations)
+                    // Place new annotation and center camera on location
+                    self.mapView.addAnnotation(MKPlacemark(placemark: placemark))
+                    self.mapView.centerCoordinate = (placemark.location?.coordinate)!
+                }
+            })
+
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Setup delegation so we can respond to MapView and LocationManager events
@@ -36,6 +78,8 @@ class CategoryAddViewController: UIViewController, MKMapViewDelegate, CLLocation
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.startUpdatingLocation()
         self.mapView.showsUserLocation = true
+        // the added category
+        categoryToAdd = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: managedObjectContext!) as? Category
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,5 +109,12 @@ class CategoryAddViewController: UIViewController, MKMapViewDelegate, CLLocation
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    // Helper function to produce an alert for the user
+    func showAlertWithDismiss(title:String, message:String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let alertDismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+        alertController.addAction(alertDismissAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
 }
