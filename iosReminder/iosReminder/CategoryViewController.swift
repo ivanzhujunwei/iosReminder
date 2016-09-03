@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class CategoryViewController: UITableViewController {
+class CategoryViewController: UITableViewController, AddCategoryDelegate {
 
     var categoryList : [Category]!
     var managedObjectContext: NSManagedObjectContext?
@@ -41,6 +41,18 @@ class CategoryViewController: UITableViewController {
         
     }
 
+    func addCategory(category: Category) {
+        let newIndexPath = NSIndexPath(forRow: categoryList.count, inSection: 0)
+        categoryList.append(category)
+        tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+        do{
+            try managedObjectContext?.save()
+        }catch{
+            fatalError("Failure to save context: \(error)")
+        }
+
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -68,38 +80,23 @@ class CategoryViewController: UITableViewController {
     }
     
     @IBAction func unwindToCategoryViewController(segue: UIStoryboardSegue) {
-        if let sourceViewController = segue.sourceViewController as? CategoryAddViewController{
+        print(111)
+        if let sourceViewController = segue.sourceViewController as? CategoryAddTableController{
             let newCategory = sourceViewController.categoryToAdd
-            newCategory!.title = sourceViewController.categoryName.text!
-            
+////            sourceViewController.
+//            newCategory!.title = sourceViewController.categoryToAdd
             // add category to table view
+            let title = sourceViewController.categoryToAdd?.title
+            newCategory?.title = title
             let newIndexPath = NSIndexPath(forRow: categoryList.count, inSection: 0)
             categoryList.append(newCategory!)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
-            
             do{
                 try managedObjectContext?.save()
             }catch{
                 fatalError("Failure to save context: \(error)")
             }
         }
-        // Get selected item if returning from StoreItemTableViewController
-//        if let sourceViewController = segue.sourceViewController as? AddAppointmentController {
-//            let newAppointment = sourceViewController.appointmentToAdd
-//            newAppointment!.title = sourceViewController.titleText.text!
-//            newAppointment!.date = sourceViewController.datePicker.date
-//            
-//            // Add item to table view
-//            let newIndexPath = NSIndexPath(forRow: appointments.count, inSection: 0)
-//            appointments.append(newAppointment!)
-//            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
-//            
-//            do {
-//                try managedObjectContext?.save()
-//            } catch {
-//                fatalError("Failure to save context: \(error)")
-//            }
-//        }
     }
 
     
@@ -149,17 +146,18 @@ class CategoryViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "addCategorySegue"
+        if segue.identifier == "addCategorySegue11"
         {
             let addCategoryViewController = segue.destinationViewController as! CategoryAddViewController
 //            let navController = segue.destinationViewController as! UINavigationController
 //            let addCategoryViewController = navController.viewControllers[0] as! CategoryAddViewController
             addCategoryViewController.managedObjectContext = self.managedObjectContext
         }
-        else if segue.identifier == "addCategory"
+        else if segue.identifier == "addCategorySegue"
         {
             let viewCategoryController = segue.destinationViewController as! CategoryAddTableController
             viewCategoryController.managedObjectContext = self.managedObjectContext
+            viewCategoryController.addCategoryDelegate = self
         }
     }
 

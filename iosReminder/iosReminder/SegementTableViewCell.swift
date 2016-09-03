@@ -10,7 +10,7 @@ import UIKit
 
 class SegementTableViewCell: UITableViewCell {
 
-    @IBOutlet var segmentWhen: UISegmentedControl!
+    @IBOutlet var whenSegment: UISegmentedControl!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

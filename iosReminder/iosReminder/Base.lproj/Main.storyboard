@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -35,14 +36,9 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Reminder Category" id="nx1-gR-OcR">
                         <barButtonItem key="backBarButtonItem" title="Back" id="qH5-ln-xvR"/>
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="znZ-0H-KWZ">
-                            <connections>
-                                <segue destination="lLk-Z3-URU" kind="show" identifier="addCategory" id="4bM-iv-1JT"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Qe2-lS-f66">
                             <connections>
-                                <segue destination="Da4-Kt-w2q" kind="show" identifier="addCategorySegue" id="Np0-rU-C0Q"/>
+                                <segue destination="lLk-Z3-URU" kind="show" identifier="addCategorySegue" id="k5v-oB-aat"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -306,7 +302,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="segmentWhen" destination="G7K-MO-4Ni" id="PPg-iY-dM1"/>
+                                    <outlet property="whenSegment" destination="G7K-MO-4Ni" id="21b-Ab-Hzs"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -319,7 +315,7 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="AgT-va-fnG"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="Ucy-LQ-lLB">
                             <connections>
-                                <action selector="addCategory:" destination="lLk-Z3-URU" id="6jf-Bp-AHG"/>
+                                <action selector="addCategory:" destination="lLk-Z3-URU" id="iww-Gy-Mhy"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -375,7 +371,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C5k-dQ-K1C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="920.5" y="804.5"/>
+            <point key="canvasLocation" x="1011.5" y="804.5"/>
         </scene>
         <!--Add Category-->
         <scene sceneID="R8M-vT-pTe">
@@ -416,7 +412,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="When" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f6e-kx-v9Z">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f6e-kx-v9Z">
                                 <rect key="frame" x="7" y="334" width="45" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -466,25 +462,28 @@
                             <constraint firstItem="awQ-3E-Mgu" firstAttribute="trailing" secondItem="ieJ-ym-0Qw" secondAttribute="trailing" id="4rp-bq-4Td"/>
                             <constraint firstItem="eS1-0b-FCk" firstAttribute="top" secondItem="YUf-W6-ZdG" secondAttribute="bottom" constant="17" id="5KN-Pf-7hl"/>
                             <constraint firstItem="awQ-3E-Mgu" firstAttribute="top" secondItem="d8s-fL-5wi" secondAttribute="bottom" constant="13" id="7PZ-nk-hI6"/>
+                            <constraint firstItem="f6e-kx-v9Z" firstAttribute="baseline" secondItem="ieJ-ym-0Qw" secondAttribute="firstBaseline" id="7gC-4X-Tdn"/>
                             <constraint firstItem="YUf-W6-ZdG" firstAttribute="top" secondItem="vQM-6P-75X" secondAttribute="bottom" constant="16" id="AQR-vL-NWN"/>
                             <constraint firstItem="d8s-fL-5wi" firstAttribute="trailing" secondItem="awQ-3E-Mgu" secondAttribute="trailing" id="AZg-2h-bRT"/>
                             <constraint firstItem="d8s-fL-5wi" firstAttribute="leading" secondItem="bts-x1-sRQ" secondAttribute="leading" id="AwO-Ns-FQT"/>
+                            <constraint firstItem="f6e-kx-v9Z" firstAttribute="centerY" secondItem="ieJ-ym-0Qw" secondAttribute="centerY" id="EPF-gP-JW0"/>
                             <constraint firstAttribute="bottom" secondItem="afT-kS-ti7" secondAttribute="bottom" id="Ejc-7I-VPV"/>
+                            <constraint firstItem="f6e-kx-v9Z" firstAttribute="leading" secondItem="YUf-W6-ZdG" secondAttribute="leading" id="GlB-Nu-PCS"/>
                             <constraint firstAttribute="trailing" secondItem="d8s-fL-5wi" secondAttribute="trailing" id="Hm0-Uc-QLO"/>
                             <constraint firstItem="d8s-fL-5wi" firstAttribute="top" secondItem="KTi-5n-P1V" secondAttribute="bottom" constant="18" id="ILw-Qf-YQn"/>
-                            <constraint firstItem="vQM-6P-75X" firstAttribute="leading" secondItem="f6e-kx-v9Z" secondAttribute="leading" id="K07-rZ-QfR"/>
-                            <constraint firstItem="eS1-0b-FCk" firstAttribute="centerX" secondItem="f6e-kx-v9Z" secondAttribute="centerX" id="OfD-B3-7Tg"/>
                             <constraint firstItem="eS1-0b-FCk" firstAttribute="centerY" secondItem="iQ2-WX-LAf" secondAttribute="centerY" id="QtC-Tk-XgA"/>
                             <constraint firstItem="ieJ-ym-0Qw" firstAttribute="top" secondItem="iQ2-WX-LAf" secondAttribute="bottom" constant="9" id="fJn-PW-Fgz"/>
+                            <constraint firstItem="f6e-kx-v9Z" firstAttribute="centerX" secondItem="eS1-0b-FCk" secondAttribute="centerX" id="faU-b5-yxE"/>
                             <constraint firstItem="vQM-6P-75X" firstAttribute="leading" secondItem="YUf-W6-ZdG" secondAttribute="leading" id="gTY-vv-hku"/>
                             <constraint firstItem="eS1-0b-FCk" firstAttribute="leading" secondItem="bts-x1-sRQ" secondAttribute="leadingMargin" constant="-10" id="hhp-OP-LKI"/>
+                            <constraint firstItem="afT-kS-ti7" firstAttribute="top" secondItem="f6e-kx-v9Z" secondAttribute="bottom" constant="48" id="hng-8K-iUv"/>
                             <constraint firstAttribute="trailingMargin" secondItem="iQ2-WX-LAf" secondAttribute="trailing" constant="4" id="i83-64-pNz"/>
-                            <constraint firstItem="f6e-kx-v9Z" firstAttribute="centerY" secondItem="ieJ-ym-0Qw" secondAttribute="centerY" id="lR3-m6-et0"/>
                             <constraint firstItem="afT-kS-ti7" firstAttribute="top" secondItem="ieJ-ym-0Qw" secondAttribute="bottom" constant="44" id="oPi-Be-Kcz"/>
-                            <constraint firstItem="ieJ-ym-0Qw" firstAttribute="leading" secondItem="f6e-kx-v9Z" secondAttribute="trailing" constant="78" id="r8V-fJ-XRN"/>
-                            <constraint firstItem="f6e-kx-v9Z" firstAttribute="firstBaseline" secondItem="ieJ-ym-0Qw" secondAttribute="firstBaseline" id="sdw-fS-xaD"/>
+                            <constraint firstItem="ieJ-ym-0Qw" firstAttribute="leading" secondItem="f6e-kx-v9Z" secondAttribute="trailing" constant="78" id="q00-sN-MbQ"/>
+                            <constraint firstItem="f6e-kx-v9Z" firstAttribute="baseline" secondItem="ieJ-ym-0Qw" secondAttribute="baseline" id="qLn-it-m3s"/>
                             <constraint firstItem="d8s-fL-5wi" firstAttribute="leading" secondItem="awQ-3E-Mgu" secondAttribute="leading" id="t5b-mM-UH7"/>
                             <constraint firstItem="awQ-3E-Mgu" firstAttribute="leading" secondItem="afT-kS-ti7" secondAttribute="leading" id="tjo-oA-x7F"/>
+                            <constraint firstItem="f6e-kx-v9Z" firstAttribute="firstBaseline" secondItem="ieJ-ym-0Qw" secondAttribute="baseline" id="uCn-tt-Afw"/>
                             <constraint firstItem="ieJ-ym-0Qw" firstAttribute="trailing" secondItem="afT-kS-ti7" secondAttribute="trailing" id="v3H-v0-AhP"/>
                         </constraints>
                     </view>
@@ -515,7 +514,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1011.5" y="40.5"/>
+            <point key="canvasLocation" x="1011.5" y="298.5"/>
         </scene>
         <!--Category-->
         <scene sceneID="bcv-jr-9xY">

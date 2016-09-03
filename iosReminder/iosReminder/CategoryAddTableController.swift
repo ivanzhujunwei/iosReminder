@@ -11,21 +11,65 @@ import MapKit
 import CoreLocation
 import CoreData
 
+protocol  AddCategoryDelegate {
+    func addCategory(category: Category)
+}
+
 class CategoryAddTableController: UITableViewController {
 
     var managedObjectContext : NSManagedObjectContext?
     var categoryToAdd : Category?
-    
-//    let locationManager = CLLocationManager()
-//    let geocoder = CLGeocoder()
+    var addCategoryDelegate: AddCategoryDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // the added category
         categoryToAdd = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: managedObjectContext!) as? Category
     }
+    
 
     @IBAction func addCategory(sender: AnyObject) {
+        let sections = numberOfSectionsInTableView(self.tableView)
+        for section in 0 ..< sections {
+//            let rowCount = tableView.numberOfRowsInSection(section)
+            let rowIndex = 0 // every section has only one row
+            switch section {
+            case 0:
+                let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowIndex, inSection: section)) as! TextinputTableViewCell
+                categoryToAdd?.title = cell.getText()
+                break
+            case 1:
+                let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowIndex, inSection: section)) as! CategoryTableViewCell
+                categoryToAdd?.location = cell.textDisplayField.text
+                break
+            case 2:
+                let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowIndex, inSection: section)) as! CategoryTableViewCell
+                categoryToAdd?.radius = Double(cell.radiusDisplayField.text!)
+                break
+            case 3:
+                let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowIndex, inSection: section)) as! CategoryTableViewCell
+                categoryToAdd?.color = cell.colorDisplayField.text
+                break
+            case 4:
+                let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowIndex, inSection: section)) as! ToggleTableViewCell
+                if(cell.switchNotify.on){
+                    categoryToAdd?.toogle=true
+                }else{
+                    categoryToAdd?.toogle=false
+                }
+                break
+            default:
+                let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowIndex, inSection: section)) as! SegementTableViewCell
+                
+                if(cell.whenSegment.selectedSegmentIndex == 0){// arrive
+                    categoryToAdd?.notifyByArriveOrLeave = 0
+                }else{
+                    categoryToAdd?.notifyByArriveOrLeave = 1
+                }
+                break
+            }
+        }
+        self.addCategoryDelegate!.addCategory(categoryToAdd!)
         self.navigationController?.popViewControllerAnimated(true)
     }
     override func didReceiveMemoryWarning() {
@@ -55,18 +99,18 @@ class CategoryAddTableController: UITableViewController {
         } else if indexPath.section == 1 {
             print("location")
             let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath) as! CategoryTableViewCell
-            cell.textDisplayField.text = "ll"
+            cell.textDisplayField.text = "Caulfield East"
 //            cell.textLabel!.text = "Location"
             return cell
         } else if indexPath.section == 2 {
             print("radius")
             let cell = tableView.dequeueReusableCellWithIdentifier("radiusCell", forIndexPath: indexPath) as! CategoryTableViewCell
-            cell.radiusDisplayField.text = "rr"
+            cell.radiusDisplayField.text = "50"
             return cell
         } else if indexPath.section == 3 {
             print("color")
             let cell = tableView.dequeueReusableCellWithIdentifier("colorCell", forIndexPath: indexPath) as! CategoryTableViewCell
-            cell.colorDisplayField.text = "cc"
+            cell.colorDisplayField.text = "red"
             return cell
         }else if indexPath.section == 4 {
             print("notify")
