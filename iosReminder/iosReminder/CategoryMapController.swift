@@ -1,40 +1,25 @@
 //
-//  CategoryAddViewController.swift
+//  CategoryMapController.swift
 //  iosReminder
 //
-//  Created by zjw on 30/08/2016.
+//  Created by zjw on 3/09/2016.
 //  Copyright © 2016 FIT5140. All rights reserved.
 //
 
 import UIKit
 import MapKit
-import CoreLocation
-import CoreData
 
-class CategoryAddViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class CategoryMapController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
-    @IBOutlet var categoryName: UITextField!
-    @IBOutlet var categoryColor: UISegmentedControl!
-    @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet var locationText: UITextField!
+//    @IBOutlet var searchLocationBar: UISearchBar!
     
-    var managedObjectContext : NSManagedObjectContext?
-    var categoryToAdd : Category?
-    
+    @IBOutlet var searchBar: UISearchBar!
     let locationManager = CLLocationManager()
     let geocoder = CLGeocoder()
     
-    @IBAction func addCategory(sender: AnyObject) {
-//        let newCategory = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: managedObjectContext!) as! Category
-//        newCategory.title = categoryName.text
-        // more later
-        // ...
-        self.navigationController?.popViewControllerAnimated(true)
-        
-    }
-    
-    @IBAction func searchLocation(sender: AnyObject) {
-        if let location = locationText.text where !location.isEmpty{
+    func searchBarSearchButtonClicked(searchBar: UISearchBar){
+        searchBar.resignFirstResponder()
+        if let location = searchBar.text where !location.isEmpty{
             geocoder.geocodeAddressString(location, completionHandler: { (placemarks, error) in
                 if error != nil {
                     // Handle potential errors
@@ -56,14 +41,19 @@ class CategoryAddViewController: UIViewController, MKMapViewDelegate, CLLocation
                     self.mapView.centerCoordinate = (placemark.location?.coordinate)!
                 }
             })
-
+            
         }
     }
     
+    
+    @IBOutlet var mapView: MKMapView!
+    
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Setup delegation so we can respond to MapView and LocationManager events
-        mapView.delegate = self
+//        self.searchBar.delegate = self
+        self.mapView.delegate = self
         // The delegate object to receive update events
         self.locationManager.delegate   = self
         // There are several accuracy:
@@ -79,8 +69,7 @@ class CategoryAddViewController: UIViewController, MKMapViewDelegate, CLLocation
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.startUpdatingLocation()
         self.mapView.showsUserLocation = true
-        // the added category
-        categoryToAdd = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: managedObjectContext!) as? Category
+        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -101,6 +90,7 @@ class CategoryAddViewController: UIViewController, MKMapViewDelegate, CLLocation
         self.mapView.setRegion(region, animated: true)
         self.locationManager.stopUpdatingLocation()
     }
+
     /*
     // MARK: - Navigation
 
@@ -118,4 +108,6 @@ class CategoryAddViewController: UIViewController, MKMapViewDelegate, CLLocation
         alertController.addAction(alertDismissAction)
         self.presentViewController(alertController, animated: true, completion: nil)
     }
+
+
 }

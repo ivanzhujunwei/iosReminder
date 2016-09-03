@@ -156,12 +156,11 @@ class CategoryViewController: UITableViewController {
 //            let addCategoryViewController = navController.viewControllers[0] as! CategoryAddViewController
             addCategoryViewController.managedObjectContext = self.managedObjectContext
         }
-//        else if segue.identifier == "viewCategorySeg"
-//        {
-//            let viewCategoryController = segue.destinationViewController as! CategoryDetailViewController
-//            let index = tableView.indexPathForSelectedRow
-//            viewCategoryController.category
-//        }
+        else if segue.identifier == "addCategory"
+        {
+            let viewCategoryController = segue.destinationViewController as! CategoryAddTableController
+            viewCategoryController.managedObjectContext = self.managedObjectContext
+        }
     }
 
 }

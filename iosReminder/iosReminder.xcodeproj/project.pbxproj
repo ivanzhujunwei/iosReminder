@@ -12,6 +12,12 @@
 		60D927B41D76801B00DEC6ED /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D927B01D76801B00DEC6ED /* Category.swift */; };
 		60D927B51D76801B00DEC6ED /* Reminder+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D927B11D76801B00DEC6ED /* Reminder+CoreDataProperties.swift */; };
 		60D927B61D76801B00DEC6ED /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D927B21D76801B00DEC6ED /* Reminder.swift */; };
+		60F94F0E1D799DD80091DEB7 /* CategoryAddTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F94F0D1D799DD80091DEB7 /* CategoryAddTableController.swift */; };
+		60F94F101D79AAA30091DEB7 /* TextinputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F94F0F1D79AAA30091DEB7 /* TextinputTableViewCell.swift */; };
+		60F94F121D79B6480091DEB7 /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F94F111D79B6480091DEB7 /* LocationTableViewCell.swift */; };
+		60F94F141D79C76A0091DEB7 /* ToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F94F131D79C76A0091DEB7 /* ToggleTableViewCell.swift */; };
+		60F94F161D79C79D0091DEB7 /* SegementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F94F151D79C79D0091DEB7 /* SegementTableViewCell.swift */; };
+		60F94F181D79D2540091DEB7 /* CategoryMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F94F171D79D2540091DEB7 /* CategoryMapController.swift */; };
 		60FCC6311D752F9600B8DD39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FCC6301D752F9600B8DD39 /* AppDelegate.swift */; };
 		60FCC6361D752F9600B8DD39 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60FCC6341D752F9600B8DD39 /* Main.storyboard */; };
 		60FCC6391D752F9600B8DD39 /* iosReminder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 60FCC6371D752F9600B8DD39 /* iosReminder.xcdatamodeld */; };
@@ -29,6 +35,12 @@
 		60D927B01D76801B00DEC6ED /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		60D927B11D76801B00DEC6ED /* Reminder+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Reminder+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		60D927B21D76801B00DEC6ED /* Reminder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
+		60F94F0D1D799DD80091DEB7 /* CategoryAddTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryAddTableController.swift; sourceTree = "<group>"; };
+		60F94F0F1D79AAA30091DEB7 /* TextinputTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextinputTableViewCell.swift; sourceTree = "<group>"; };
+		60F94F111D79B6480091DEB7 /* LocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
+		60F94F131D79C76A0091DEB7 /* ToggleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleTableViewCell.swift; sourceTree = "<group>"; };
+		60F94F151D79C79D0091DEB7 /* SegementTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegementTableViewCell.swift; sourceTree = "<group>"; };
+		60F94F171D79D2540091DEB7 /* CategoryMapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryMapController.swift; sourceTree = "<group>"; };
 		60FCC62D1D752F9600B8DD39 /* iosReminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosReminder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60FCC6301D752F9600B8DD39 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		60FCC6351D752F9600B8DD39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -91,6 +103,8 @@
 				60FCC6471D75B4D300B8DD39 /* CategoryDetailViewController.swift */,
 				60FCC64C1D75BE6F00B8DD39 /* CategoryViewController.swift */,
 				60FCC64E1D75C7F500B8DD39 /* CategoryAddViewController.swift */,
+				60F94F0D1D799DD80091DEB7 /* CategoryAddTableController.swift */,
+				60F94F171D79D2540091DEB7 /* CategoryMapController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -111,6 +125,10 @@
 			isa = PBXGroup;
 			children = (
 				60FCC64A1D75B64700B8DD39 /* CategoryTableViewCell.swift */,
+				60F94F0F1D79AAA30091DEB7 /* TextinputTableViewCell.swift */,
+				60F94F111D79B6480091DEB7 /* LocationTableViewCell.swift */,
+				60F94F131D79C76A0091DEB7 /* ToggleTableViewCell.swift */,
+				60F94F151D79C79D0091DEB7 /* SegementTableViewCell.swift */,
 			);
 			name = TableViewCells;
 			sourceTree = "<group>";
@@ -187,15 +205,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60F94F0E1D799DD80091DEB7 /* CategoryAddTableController.swift in Sources */,
+				60F94F161D79C79D0091DEB7 /* SegementTableViewCell.swift in Sources */,
 				60D927B31D76801B00DEC6ED /* Category+CoreDataProperties.swift in Sources */,
 				60FCC64B1D75B64700B8DD39 /* CategoryTableViewCell.swift in Sources */,
 				60FCC6481D75B4D300B8DD39 /* CategoryDetailViewController.swift in Sources */,
+				60F94F141D79C76A0091DEB7 /* ToggleTableViewCell.swift in Sources */,
 				60FCC64F1D75C7F500B8DD39 /* CategoryAddViewController.swift in Sources */,
 				60FCC6311D752F9600B8DD39 /* AppDelegate.swift in Sources */,
 				60FCC64D1D75BE6F00B8DD39 /* CategoryViewController.swift in Sources */,
 				603187141D7849D100AA904E /* CategoryColor.swift in Sources */,
+				60F94F121D79B6480091DEB7 /* LocationTableViewCell.swift in Sources */,
+				60F94F101D79AAA30091DEB7 /* TextinputTableViewCell.swift in Sources */,
 				60FCC6391D752F9600B8DD39 /* iosReminder.xcdatamodeld in Sources */,
 				60D927B41D76801B00DEC6ED /* Category.swift in Sources */,
+				60F94F181D79D2540091DEB7 /* CategoryMapController.swift in Sources */,
 				60D927B51D76801B00DEC6ED /* Reminder+CoreDataProperties.swift in Sources */,
 				60D927B61D76801B00DEC6ED /* Reminder.swift in Sources */,
 			);

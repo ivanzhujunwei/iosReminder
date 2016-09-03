@@ -1,18 +1,16 @@
 //
-//  CategoryTableViewCell.swift
+//  TextinputTableViewCell.swift
 //  iosReminder
 //
-//  Created by zjw on 30/08/2016.
+//  Created by zjw on 2/09/2016.
 //  Copyright © 2016 FIT5140. All rights reserved.
 //
 
 import UIKit
 
-class CategoryTableViewCell: UITableViewCell {
+class TextinputTableViewCell: UITableViewCell {
 
-    @IBOutlet var textDisplayField: UILabel!
-    @IBOutlet var radiusDisplayField: UILabel!
-    @IBOutlet var colorDisplayField: UILabel!
+    @IBOutlet var categoryTitleText: UITextField!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

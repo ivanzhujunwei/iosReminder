@@ -1,18 +1,16 @@
 //
-//  CategoryTableViewCell.swift
+//  ToggleTableViewCell.swift
 //  iosReminder
 //
-//  Created by zjw on 30/08/2016.
+//  Created by zjw on 3/09/2016.
 //  Copyright © 2016 FIT5140. All rights reserved.
 //
 
 import UIKit
 
-class CategoryTableViewCell: UITableViewCell {
+class ToggleTableViewCell: UITableViewCell {
 
-    @IBOutlet var textDisplayField: UILabel!
-    @IBOutlet var radiusDisplayField: UILabel!
-    @IBOutlet var colorDisplayField: UILabel!
+    @IBOutlet var switchNotify: UISwitch!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
