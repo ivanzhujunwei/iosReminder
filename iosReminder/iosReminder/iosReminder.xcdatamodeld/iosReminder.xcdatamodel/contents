@@ -2,9 +2,9 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15G31" minimumToolsVersion="Automatic">
     <entity name="Category" representedClassName=".Category" syncable="YES">
         <attribute name="color" optional="YES" attributeType="String" valueTransformerName="colorTransformer" syncable="YES"/>
-        <attribute name="latitude" optional="YES" attributeType="Double" minValueString="0" maxValueString="180" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="longitude" optional="YES" attributeType="Double" minValueString="0" maxValueString="180" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="notifyByArriveOrLeave" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="radius" optional="YES" attributeType="Integer 16" minValueString="50" maxValueString="1000" defaultValueString="250" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" minValueString="1" syncable="YES"/>

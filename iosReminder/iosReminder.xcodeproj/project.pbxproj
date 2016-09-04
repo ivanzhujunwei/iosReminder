@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		603187141D7849D100AA904E /* CategoryColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603187131D7849D100AA904E /* CategoryColor.swift */; };
+		606DF4131D7B19E60050757B /* RadiusSelectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DF4121D7B19E60050757B /* RadiusSelectController.swift */; };
 		60D927B31D76801B00DEC6ED /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D927AF1D76801B00DEC6ED /* Category+CoreDataProperties.swift */; };
 		60D927B41D76801B00DEC6ED /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D927B01D76801B00DEC6ED /* Category.swift */; };
 		60D927B51D76801B00DEC6ED /* Reminder+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D927B11D76801B00DEC6ED /* Reminder+CoreDataProperties.swift */; };
@@ -26,11 +27,11 @@
 		60FCC6481D75B4D300B8DD39 /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FCC6471D75B4D300B8DD39 /* CategoryDetailViewController.swift */; };
 		60FCC64B1D75B64700B8DD39 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FCC64A1D75B64700B8DD39 /* CategoryTableViewCell.swift */; };
 		60FCC64D1D75BE6F00B8DD39 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FCC64C1D75BE6F00B8DD39 /* CategoryViewController.swift */; };
-		60FCC64F1D75C7F500B8DD39 /* CategoryAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FCC64E1D75C7F500B8DD39 /* CategoryAddViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		603187131D7849D100AA904E /* CategoryColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryColor.swift; sourceTree = "<group>"; };
+		606DF4121D7B19E60050757B /* RadiusSelectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadiusSelectController.swift; sourceTree = "<group>"; };
 		60D927AF1D76801B00DEC6ED /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		60D927B01D76801B00DEC6ED /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		60D927B11D76801B00DEC6ED /* Reminder+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Reminder+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -51,7 +52,6 @@
 		60FCC6471D75B4D300B8DD39 /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
 		60FCC64A1D75B64700B8DD39 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		60FCC64C1D75BE6F00B8DD39 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
-		60FCC64E1D75C7F500B8DD39 /* CategoryAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryAddViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,9 +102,9 @@
 			children = (
 				60FCC6471D75B4D300B8DD39 /* CategoryDetailViewController.swift */,
 				60FCC64C1D75BE6F00B8DD39 /* CategoryViewController.swift */,
-				60FCC64E1D75C7F500B8DD39 /* CategoryAddViewController.swift */,
 				60F94F0D1D799DD80091DEB7 /* CategoryAddTableController.swift */,
 				60F94F171D79D2540091DEB7 /* CategoryMapController.swift */,
+				606DF4121D7B19E60050757B /* RadiusSelectController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -205,13 +205,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				606DF4131D7B19E60050757B /* RadiusSelectController.swift in Sources */,
 				60F94F0E1D799DD80091DEB7 /* CategoryAddTableController.swift in Sources */,
 				60F94F161D79C79D0091DEB7 /* SegementTableViewCell.swift in Sources */,
 				60D927B31D76801B00DEC6ED /* Category+CoreDataProperties.swift in Sources */,
 				60FCC64B1D75B64700B8DD39 /* CategoryTableViewCell.swift in Sources */,
 				60FCC6481D75B4D300B8DD39 /* CategoryDetailViewController.swift in Sources */,
 				60F94F141D79C76A0091DEB7 /* ToggleTableViewCell.swift in Sources */,
-				60FCC64F1D75C7F500B8DD39 /* CategoryAddViewController.swift in Sources */,
 				60FCC6311D752F9600B8DD39 /* AppDelegate.swift in Sources */,
 				60FCC64D1D75BE6F00B8DD39 /* CategoryViewController.swift in Sources */,
 				603187141D7849D100AA904E /* CategoryColor.swift in Sources */,

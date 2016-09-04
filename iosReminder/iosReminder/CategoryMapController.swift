@@ -9,13 +9,16 @@
 import UIKit
 import MapKit
 
+protocol SetLocationDelegate{
+    func setLocation(locationName:String,longitude:Double,latitude:Double)
+}
+
 class CategoryMapController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
-//    @IBOutlet var searchLocationBar: UISearchBar!
-    
     @IBOutlet var searchBar: UISearchBar!
     let locationManager = CLLocationManager()
     let geocoder = CLGeocoder()
+    var setLocationDelegate: SetLocationDelegate?
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar){
         searchBar.resignFirstResponder()
@@ -38,16 +41,23 @@ class CategoryMapController: UIViewController, MKMapViewDelegate, CLLocationMana
                     self.mapView.removeAnnotations(self.mapView.annotations)
                     // Place new annotation and center camera on location
                     self.mapView.addAnnotation(MKPlacemark(placemark: placemark))
-                    self.mapView.centerCoordinate = (placemark.location?.coordinate)!
+                    let coord = placemark.location?.coordinate
+                    self.mapView.centerCoordinate = (coord)!
+                    // set location information to previous controller
+                    self.setLocationDelegate?.setLocation(searchBar.text!, longitude: (coord?.longitude)!, latitude: (coord?.latitude)!)
                 }
             })
-            
         }
     }
     
     
     @IBOutlet var mapView: MKMapView!
     
+    @IBAction func addLocation(sender: AnyObject) {
+//        let locationName = searchBar.text
+//        self.setLocationDelegate?.setLocation(locatio<#T##Double#>nName, longitude: <#T##Double#>, latitude: )
+        self.navigationController?.popViewControllerAnimated(true)
+    }
    
     
     override func viewDidLoad() {

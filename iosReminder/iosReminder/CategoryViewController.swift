@@ -25,7 +25,10 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
         super.viewDidLoad()
         // fetch current dataset
         fetchData()
-        tableView.reloadData()
+//        tableView.reloadData()
+        // reference: stackoverflow.com/questions/28708574/how-to-remove-extra-empty-cells-in-tableviewcontroller-ios-swift
+        // delete blank rows
+        tableView.tableFooterView = UIView()
     }
     
     func fetchData(){
@@ -38,9 +41,8 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
         }catch{
             fatalError("Failed to fetch category information: \(error)")
         }
-        
     }
-
+    
     func addCategory(category: Category) {
         let newIndexPath = NSIndexPath(forRow: categoryList.count, inSection: 0)
         categoryList.append(category)
@@ -67,7 +69,11 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return categoryList.count
+        switch(section)
+        {
+        case 0: return categoryList.count
+        default: return 0
+        }
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -76,28 +82,29 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
         // Configure the cell...
         let category = categoryList[indexPath.row]
         cell.textLabel?.text = category.title
+        cell.detailTextLabel?.text = category.location
         return cell
     }
     
-    @IBAction func unwindToCategoryViewController(segue: UIStoryboardSegue) {
-        print(111)
-        if let sourceViewController = segue.sourceViewController as? CategoryAddTableController{
-            let newCategory = sourceViewController.categoryToAdd
-////            sourceViewController.
-//            newCategory!.title = sourceViewController.categoryToAdd
-            // add category to table view
-            let title = sourceViewController.categoryToAdd?.title
-            newCategory?.title = title
-            let newIndexPath = NSIndexPath(forRow: categoryList.count, inSection: 0)
-            categoryList.append(newCategory!)
-            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
-            do{
-                try managedObjectContext?.save()
-            }catch{
-                fatalError("Failure to save context: \(error)")
-            }
-        }
-    }
+//    @IBAction func unwindToCategoryViewController(segue: UIStoryboardSegue) {
+//        print(111)
+//        if let sourceViewController = segue.sourceViewController as? CategoryAddTableController{
+//            let newCategory = sourceViewController.categoryToAdd
+//////            sourceViewController.
+////            newCategory!.title = sourceViewController.categoryToAdd
+//            // add category to table view
+//            let title = sourceViewController.categoryToAdd?.title
+//            newCategory?.title = title
+//            let newIndexPath = NSIndexPath(forRow: categoryList.count, inSection: 0)
+//            categoryList.append(newCategory!)
+//            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+//            do{
+//                try managedObjectContext?.save()
+//            }catch{
+//                fatalError("Failure to save context: \(error)")
+//            }
+//        }
+//    }
 
     
 //    override func viewWillAppear(animated: Bool) {
@@ -148,10 +155,10 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
         // Pass the selected object to the new view controller.
         if segue.identifier == "addCategorySegue11"
         {
-            let addCategoryViewController = segue.destinationViewController as! CategoryAddViewController
+//            let addCategoryViewController = segue.destinationViewController as! CategoryAddViewController
 //            let navController = segue.destinationViewController as! UINavigationController
 //            let addCategoryViewController = navController.viewControllers[0] as! CategoryAddViewController
-            addCategoryViewController.managedObjectContext = self.managedObjectContext
+//            addCategoryViewController.managedObjectContext = self.managedObjectContext
         }
         else if segue.identifier == "addCategorySegue"
         {
