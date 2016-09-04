@@ -153,8 +153,12 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "addCategorySegue11"
+        if segue.identifier == "viewCategorySeg"
         {
+            let viewController = segue.destinationViewController as! ReminderListController
+            let indexPath = tableView.indexPathForSelectedRow
+            viewController.categoryToView = categoryList[indexPath!.row]
+            viewController.managedObjectContext = self.managedObjectContext
 //            let addCategoryViewController = segue.destinationViewController as! CategoryAddViewController
 //            let navController = segue.destinationViewController as! UINavigationController
 //            let addCategoryViewController = navController.viewControllers[0] as! CategoryAddViewController

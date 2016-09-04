@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		603187141D7849D100AA904E /* CategoryColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603187131D7849D100AA904E /* CategoryColor.swift */; };
 		606DF4131D7B19E60050757B /* RadiusSelectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DF4121D7B19E60050757B /* RadiusSelectController.swift */; };
+		606DF4151D7BC29F0050757B /* RadiusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DF4141D7BC29F0050757B /* RadiusTableViewCell.swift */; };
+		606DF4381D7BE4400050757B /* ReminderListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DF4371D7BE4400050757B /* ReminderListController.swift */; };
+		606DF43A1D7BF0710050757B /* ReminderAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DF4391D7BF0710050757B /* ReminderAddController.swift */; };
 		60D927B31D76801B00DEC6ED /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D927AF1D76801B00DEC6ED /* Category+CoreDataProperties.swift */; };
 		60D927B41D76801B00DEC6ED /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D927B01D76801B00DEC6ED /* Category.swift */; };
 		60D927B51D76801B00DEC6ED /* Reminder+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D927B11D76801B00DEC6ED /* Reminder+CoreDataProperties.swift */; };
@@ -32,6 +35,9 @@
 /* Begin PBXFileReference section */
 		603187131D7849D100AA904E /* CategoryColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryColor.swift; sourceTree = "<group>"; };
 		606DF4121D7B19E60050757B /* RadiusSelectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadiusSelectController.swift; sourceTree = "<group>"; };
+		606DF4141D7BC29F0050757B /* RadiusTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadiusTableViewCell.swift; sourceTree = "<group>"; };
+		606DF4371D7BE4400050757B /* ReminderListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderListController.swift; sourceTree = "<group>"; };
+		606DF4391D7BF0710050757B /* ReminderAddController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderAddController.swift; sourceTree = "<group>"; };
 		60D927AF1D76801B00DEC6ED /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		60D927B01D76801B00DEC6ED /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		60D927B11D76801B00DEC6ED /* Reminder+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Reminder+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -105,6 +111,8 @@
 				60F94F0D1D799DD80091DEB7 /* CategoryAddTableController.swift */,
 				60F94F171D79D2540091DEB7 /* CategoryMapController.swift */,
 				606DF4121D7B19E60050757B /* RadiusSelectController.swift */,
+				606DF4371D7BE4400050757B /* ReminderListController.swift */,
+				606DF4391D7BF0710050757B /* ReminderAddController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -129,6 +137,7 @@
 				60F94F111D79B6480091DEB7 /* LocationTableViewCell.swift */,
 				60F94F131D79C76A0091DEB7 /* ToggleTableViewCell.swift */,
 				60F94F151D79C79D0091DEB7 /* SegementTableViewCell.swift */,
+				606DF4141D7BC29F0050757B /* RadiusTableViewCell.swift */,
 			);
 			name = TableViewCells;
 			sourceTree = "<group>";
@@ -206,8 +215,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				606DF4131D7B19E60050757B /* RadiusSelectController.swift in Sources */,
+				606DF4381D7BE4400050757B /* ReminderListController.swift in Sources */,
 				60F94F0E1D799DD80091DEB7 /* CategoryAddTableController.swift in Sources */,
 				60F94F161D79C79D0091DEB7 /* SegementTableViewCell.swift in Sources */,
+				606DF4151D7BC29F0050757B /* RadiusTableViewCell.swift in Sources */,
+				606DF43A1D7BF0710050757B /* ReminderAddController.swift in Sources */,
 				60D927B31D76801B00DEC6ED /* Category+CoreDataProperties.swift in Sources */,
 				60FCC64B1D75B64700B8DD39 /* CategoryTableViewCell.swift in Sources */,
 				60FCC6481D75B4D300B8DD39 /* CategoryDetailViewController.swift in Sources */,

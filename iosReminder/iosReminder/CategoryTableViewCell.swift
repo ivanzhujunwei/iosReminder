@@ -10,7 +10,7 @@ import UIKit
 
 class CategoryTableViewCell: UITableViewCell {
 
-    @IBOutlet var textDisplayField: UILabel!
+//    @IBOutlet var textDisplayField: UILabel!
     @IBOutlet var radiusDisplayField: UILabel!
     @IBOutlet var colorDisplayField: UILabel!
     

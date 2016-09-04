@@ -21,11 +21,9 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
     var categoryToAdd : Category?
     var addCategoryDelegate: AddCategoryDelegate?
     
-    @IBOutlet var colorPickerView: UIPickerView!
-    
-    var colors:[CategoryColor]?
-    var picker = UIPickerView()
-
+//    var selectedIndexPath: NSIndexPath?
+    var radiuses :[String] = ["50m","250m","1000m"]
+//    var colors:[CategoryColor]?
     let titleSection = 0
     let locationSection = 1
     let radiusSection = 2
@@ -36,17 +34,30 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // remove blank rows
         tableView.tableFooterView = UIView()
-        colors = [CategoryColor.Blue,CategoryColor.Red]
-        
-        // reference: www.youtube.com/watch?v=DgHEL1bWQ58
-//        colorPickerView.dataSource = self
-//        colorPickerView.delegate = self
-//        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowInSection, inSection: colorSection)) as! CategoryTableViewCell
-//        text.inputView = picker
-        
+        // Connect data:
+//        self.picker.delegate = self
+//        self.picker.dataSource = self
         // the added category
         categoryToAdd = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: managedObjectContext!) as? Category
+    }
+    
+    // Ask for the number of columns in your picker element.
+    // For example, if you wanted to do a picker for selecting time, you might have 3 components; one for each of hour, minutes and seconds
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    // The number of rows of data
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return radiuses.count
+    }
+    
+    // The data to return for the row and component (column) that's being passed in
+    // Asks for the data for a specific row and specific component
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return radiuses[row]
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -54,25 +65,6 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
         self.tableView.reloadData()
     }
     
-    ///// for picker views
-    
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
-        return 1
-    }
-    
-    // returns the # of rows in each component..
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
-        return colors!.count
-    }
-    
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
-    {
-        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowInSection, inSection: colorSection)) as! CategoryTableViewCell
-        cell.colorDisplayField.text = colors![row].rawValue
-    }
-
-    ///// end for picker views
-
     @IBAction func addCategory(sender: AnyObject) {
         let sections = numberOfSectionsInTableView(self.tableView)
         for section in 0 ..< sections {
@@ -87,7 +79,7 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
 //                categoryToAdd?.location = cell.textDisplayField.text
                 break
             case 2:
-                let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowInSection, inSection: section)) as! CategoryTableViewCell
+                let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowInSection, inSection: section)) as! RadiusTableViewCell
                 categoryToAdd?.radius = Double(cell.radiusDisplayField.text!)
                 break
             case 3:
@@ -118,8 +110,8 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
     }
     
     func setLocation(locationName: String, longitude: Double, latitude: Double) {
-        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowInSection, inSection: locationSection)) as! CategoryTableViewCell
-        cell.textDisplayField.text = locationName
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowInSection, inSection: locationSection)) as! LocationTableViewCell
+        cell.locationDisplayField.text = locationName
         categoryToAdd?.location = locationName
         categoryToAdd?.latitude = latitude
         categoryToAdd?.longitude = longitude
@@ -150,11 +142,12 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
             cell.categoryTitleText.placeholder = "Title"
             return cell
         } else if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath) as! CategoryTableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath) as! LocationTableViewCell
             return cell
         } else if indexPath.section == 2 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("radiusCell", forIndexPath: indexPath) as! CategoryTableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("radiusCell", forIndexPath: indexPath) as! RadiusTableViewCell
             cell.radiusDisplayField.text = "50"
+//            cell.radiu
             return cell
         } else if indexPath.section == 3 {
             let cell = tableView.dequeueReusableCellWithIdentifier("colorCell", forIndexPath: indexPath) as! CategoryTableViewCell
@@ -168,11 +161,6 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
             let cell = tableView.dequeueReusableCellWithIdentifier("whenCell", forIndexPath: indexPath) as! SegementTableViewCell
             return cell;
         }
-        
-
-        // Configure the cell...
-
-//        return cell
     }
 
     /*
@@ -182,6 +170,28 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
         return true
     }
     */
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // reference: www.youtube.com/watch?v=VWgr_wNtGPM
+//        let previousIndexpath = selectedIndexPath
+//        // if the indexpath is clicked, it should be cllopased
+//        if indexPath ==  selectedIndexPath {
+//            selectedIndexPath = nil
+//        }else{
+//            selectedIndexPath = indexPath
+//        }
+//        // figure out which indexPath should be reload
+//        var indexPaths : Array<NSIndexPath> = []
+//        if let previous =  previousIndexpath{
+//            indexPaths += [previous]
+//        }
+//        if let current = selectedIndexPath {
+//            indexPaths += [current]
+//        }
+//        if indexPaths.count > 0{
+//            tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Automatic)
+//        }
+    }
 
     /*
     // Override to support editing the table view.
@@ -222,6 +232,7 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
 //            viewCategoryController.addCategoryDelegate = self
             let mapController = segue.destinationViewController as! CategoryMapController
             mapController.setLocationDelegate = self
+            
         }
     }
 

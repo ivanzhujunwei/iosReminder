@@ -81,19 +81,27 @@
             </objects>
             <point key="canvasLocation" x="-381" y="217"/>
         </scene>
-        <!--Category Detail View Controller-->
+        <!--Reminders-->
         <scene sceneID="wUM-TK-mMV">
             <objects>
-                <tableViewController id="2jW-LT-NBa" customClass="CategoryDetailViewController" customModule="iosReminder" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="2jW-LT-NBa" customClass="ReminderListController" customModule="iosReminder" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="NKX-m4-lha">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reminderCell" id="pip-KN-Sta">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryBriefCell" id="pip-KN-Sta">
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pip-KN-Sta" id="ZTa-i2-tqr">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reminderCell" id="vJM-fs-iY7">
+                                <rect key="frame" x="0.0" y="136" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vJM-fs-iY7" id="aaL-8l-LBw">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
@@ -104,10 +112,67 @@
                             <outlet property="delegate" destination="2jW-LT-NBa" id="bIp-SY-aFQ"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Reminders" id="qo4-rg-VCK">
+                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="add" id="KaV-dr-QEu">
+                            <connections>
+                                <segue destination="jYD-fv-sUX" kind="show" identifier="addReminderSegue" id="Tep-sU-pFN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MEG-Z1-Gfa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1011.5" y="-343.5"/>
+            <point key="canvasLocation" x="946.5" y="-329.5"/>
+        </scene>
+        <!--Add Reminder-->
+        <scene sceneID="bLA-wf-ToO">
+            <objects>
+                <viewController id="jYD-fv-sUX" customClass="ReminderAddController" customModule="iosReminder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fHH-mo-1AF"/>
+                        <viewControllerLayoutGuide type="bottom" id="WAK-CJ-gbP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ljd-v2-a3Y">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Reminder title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KEg-Dv-y44">
+                                <rect key="frame" x="20" y="97" width="335" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="GsX-PA-woZ">
+                                <rect key="frame" x="20" y="141" width="335" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="494661564.471201">
+                                    <!--2016-09-04 05:59:24 +0000-->
+                                </date>
+                            </datePicker>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="kmH-v9-0An">
+                                <rect key="frame" x="20" y="378" width="335" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add Reminder" id="n9S-06-Vsk">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="eb6-Jt-p2O">
+                            <connections>
+                                <action selector="addReminder:" destination="jYD-fv-sUX" id="uDo-ER-kPX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="duePicker" destination="GsX-PA-woZ" id="hew-FR-TaJ"/>
+                        <outlet property="noteField" destination="kmH-v9-0An" id="Mah-F1-7ww"/>
+                        <outlet property="titleField" destination="KEg-Dv-y44" id="qhQ-WW-nex"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PTg-Ec-3Ga" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1344.5" y="-329.5"/>
         </scene>
         <!--Add category-->
         <scene sceneID="dXl-QK-ZNK">
@@ -142,7 +207,7 @@
                                     <outlet property="categoryTitleText" destination="s5j-vo-BYh" id="6M8-Wo-vkN"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="locationCell" id="c9W-Rs-5Te" customClass="CategoryTableViewCell" customModule="iosReminder" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="locationCell" id="c9W-Rs-5Te" customClass="LocationTableViewCell" customModule="iosReminder" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="136" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c9W-Rs-5Te" id="pkB-Ll-7B3">
@@ -174,11 +239,11 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="textDisplayField" destination="GUY-Rl-P7X" id="VpV-Kg-Daa"/>
+                                    <outlet property="locationDisplayField" destination="GUY-Rl-P7X" id="9ly-3U-KaG"/>
                                     <segue destination="cWj-kn-ax3" kind="show" identifier="searchLocationSegue" id="SBt-3F-uzF"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="radiusCell" id="V1S-tq-Tl9" customClass="CategoryTableViewCell" customModule="iosReminder" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="radiusCell" id="V1S-tq-Tl9" customClass="RadiusTableViewCell" customModule="iosReminder" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="180" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="V1S-tq-Tl9" id="ey0-0u-reE">
@@ -188,7 +253,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Radius" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGB-hE-IFd">
                                             <rect key="frame" x="20" y="0.0" width="78" height="44"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="78" id="Qc5-5F-gpi"/>
+                                                <constraint firstAttribute="width" constant="78" id="UCK-OI-xI8"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -196,22 +261,24 @@
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose radius" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axv-Zg-wyR">
                                             <rect key="frame" x="232" y="11" width="110" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="2Br-AH-CGu"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="oGB-hE-IFd" firstAttribute="leading" secondItem="ey0-0u-reE" secondAttribute="leadingMargin" constant="12" id="BWo-vM-k26"/>
-                                        <constraint firstItem="axv-Zg-wyR" firstAttribute="centerY" secondItem="oGB-hE-IFd" secondAttribute="centerY" id="Enq-cc-dZp"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="axv-Zg-wyR" secondAttribute="trailing" constant="25" id="Kpp-7d-DAd"/>
-                                        <constraint firstItem="oGB-hE-IFd" firstAttribute="top" secondItem="ey0-0u-reE" secondAttribute="top" id="YHS-dR-UQe"/>
-                                        <constraint firstItem="oGB-hE-IFd" firstAttribute="centerY" secondItem="ey0-0u-reE" secondAttribute="centerY" id="hg5-wd-Zr4"/>
+                                        <constraint firstItem="axv-Zg-wyR" firstAttribute="top" secondItem="ey0-0u-reE" secondAttribute="topMargin" constant="3" id="ZFQ-xF-vb5"/>
+                                        <constraint firstItem="oGB-hE-IFd" firstAttribute="leading" secondItem="ey0-0u-reE" secondAttribute="leadingMargin" constant="12" id="iu4-gt-Chw"/>
+                                        <constraint firstItem="oGB-hE-IFd" firstAttribute="centerY" secondItem="axv-Zg-wyR" secondAttribute="centerY" id="jGL-W6-Owe"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="axv-Zg-wyR" secondAttribute="trailing" constant="25" id="pcl-k9-Jii"/>
+                                        <constraint firstItem="oGB-hE-IFd" firstAttribute="top" secondItem="ey0-0u-reE" secondAttribute="top" id="rli-Ak-c2l"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="radiusDisplayField" destination="axv-Zg-wyR" id="E8S-ee-5Ii"/>
-                                    <segue destination="9ZE-rg-e4P" kind="show" id="2DW-q4-msa"/>
+                                    <outlet property="radiusDisplayField" destination="axv-Zg-wyR" id="Tef-5t-d6F"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="colorCell" id="r8C-pP-e7L" customClass="CategoryTableViewCell" customModule="iosReminder" customModuleProvider="target">
@@ -320,6 +387,25 @@
                                     <outlet property="whenSegment" destination="G7K-MO-4Ni" id="21b-Ab-Hzs"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="picker" rowHeight="261" id="hXM-3v-6Qv" customClass="SegementTableViewCell" customModule="iosReminder" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="356" width="375" height="261"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hXM-3v-6Qv" id="Iw2-QD-swx">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="260"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JL4-h8-QkY">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="252"/>
+                                        </pickerView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="JL4-h8-QkY" secondAttribute="trailing" id="1Dc-bD-PHW"/>
+                                        <constraint firstItem="JL4-h8-QkY" firstAttribute="leading" secondItem="Iw2-QD-swx" secondAttribute="leading" id="Esm-gI-rim"/>
+                                        <constraint firstItem="JL4-h8-QkY" firstAttribute="bottom" secondItem="Iw2-QD-swx" secondAttribute="bottomMargin" id="GaO-Pa-BaN"/>
+                                        <constraint firstItem="JL4-h8-QkY" firstAttribute="top" secondItem="Iw2-QD-swx" secondAttribute="top" id="toH-RL-vaI"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="lLk-Z3-URU" id="WPt-DV-zgj"/>
@@ -402,7 +488,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="radiusSelectCell" id="rVQ-eb-GhG">
-                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rVQ-eb-GhG" id="gaA-bJ-fAN">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
