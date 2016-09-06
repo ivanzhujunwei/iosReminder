@@ -12,12 +12,13 @@ import CoreData
 class CategoryViewController: UITableViewController, AddCategoryDelegate {
 
     var categoryList : [Category]!
-    var managedObjectContext: NSManagedObjectContext?
+    var managedObjectContext: NSManagedObjectContext
     
     required init?(coder aDecoder:NSCoder){
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         // Q: This has already been defined in AppDelegate class, why do I need this again?
         self.managedObjectContext = appDelegate.managedObjectContext
+//        self.categoryList = appDelegate.categoryList
         super.init(coder: aDecoder)
     }
     
@@ -25,7 +26,6 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
         super.viewDidLoad()
         // fetch current dataset
         fetchData()
-//        tableView.reloadData()
         // reference: stackoverflow.com/questions/28708574/how-to-remove-extra-empty-cells-in-tableviewcontroller-ios-swift
         // delete blank rows
         tableView.tableFooterView = UIView()
@@ -36,7 +36,7 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
         //Q: how to "rerange"
 //        let prioritySort  = NSSortDescriptor(key: "priority", ascending: false)
         do{
-            let fetchResults = try managedObjectContext?.executeFetchRequest(fetch) as! [Category]
+            let fetchResults = try managedObjectContext.executeFetchRequest(fetch) as! [Category]
             categoryList = fetchResults
         }catch{
             fatalError("Failed to fetch category information: \(error)")
@@ -48,7 +48,7 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
         categoryList.append(category)
         tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         do{
-            try managedObjectContext?.save()
+            try managedObjectContext.save()
         }catch{
             fatalError("Failure to save context: \(error)")
         }
@@ -60,15 +60,11 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
-
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         switch(section)
         {
         case 0: return categoryList.count
@@ -78,7 +74,6 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("categoryCell", forIndexPath: indexPath)
-
         // Configure the cell...
         let category = categoryList[indexPath.row]
         cell.textLabel?.text = category.title
@@ -105,12 +100,10 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
 //            }
 //        }
 //    }
-
-    
-//    override func viewWillAppear(animated: Bool) {
-//        super.viewWillAppear(animated)
-//        self.tableView.reloadData()
-//    }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.reloadData()
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -120,17 +113,21 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
     }
     */
 
-    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
+            managedObjectContext.deleteObject(categoryList[indexPath.row])
+            categoryList.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            // save the managedObjectContext
+            do{
+               try self.managedObjectContext.save()
+            }catch let error {
+                print("Could not save Deletion \(error)")
+            }
+        }
     }
-    */
 
     /*
     // Override to support rearranging the table view.
@@ -159,10 +156,6 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
             let indexPath = tableView.indexPathForSelectedRow
             viewController.categoryToView = categoryList[indexPath!.row]
             viewController.managedObjectContext = self.managedObjectContext
-//            let addCategoryViewController = segue.destinationViewController as! CategoryAddViewController
-//            let navController = segue.destinationViewController as! UINavigationController
-//            let addCategoryViewController = navController.viewControllers[0] as! CategoryAddViewController
-//            addCategoryViewController.managedObjectContext = self.managedObjectContext
         }
         else if segue.identifier == "addCategorySegue"
         {

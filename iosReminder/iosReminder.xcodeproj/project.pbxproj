@@ -12,11 +12,12 @@
 		606DF4151D7BC29F0050757B /* RadiusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DF4141D7BC29F0050757B /* RadiusTableViewCell.swift */; };
 		606DF4381D7BE4400050757B /* ReminderListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DF4371D7BE4400050757B /* ReminderListController.swift */; };
 		606DF43A1D7BF0710050757B /* ReminderAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DF4391D7BF0710050757B /* ReminderAddController.swift */; };
+		60B423991D7EE39900014D74 /* CategoryMapAnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B423981D7EE39900014D74 /* CategoryMapAnnotationController.swift */; };
 		60D927B31D76801B00DEC6ED /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D927AF1D76801B00DEC6ED /* Category+CoreDataProperties.swift */; };
 		60D927B41D76801B00DEC6ED /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D927B01D76801B00DEC6ED /* Category.swift */; };
 		60D927B51D76801B00DEC6ED /* Reminder+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D927B11D76801B00DEC6ED /* Reminder+CoreDataProperties.swift */; };
 		60D927B61D76801B00DEC6ED /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D927B21D76801B00DEC6ED /* Reminder.swift */; };
-		60F94F0E1D799DD80091DEB7 /* CategoryAddTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F94F0D1D799DD80091DEB7 /* CategoryAddTableController.swift */; };
+		60F94F0E1D799DD80091DEB7 /* CategoryDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F94F0D1D799DD80091DEB7 /* CategoryDetailController.swift */; };
 		60F94F101D79AAA30091DEB7 /* TextinputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F94F0F1D79AAA30091DEB7 /* TextinputTableViewCell.swift */; };
 		60F94F121D79B6480091DEB7 /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F94F111D79B6480091DEB7 /* LocationTableViewCell.swift */; };
 		60F94F141D79C76A0091DEB7 /* ToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F94F131D79C76A0091DEB7 /* ToggleTableViewCell.swift */; };
@@ -27,7 +28,6 @@
 		60FCC6391D752F9600B8DD39 /* iosReminder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 60FCC6371D752F9600B8DD39 /* iosReminder.xcdatamodeld */; };
 		60FCC63B1D752F9600B8DD39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60FCC63A1D752F9600B8DD39 /* Assets.xcassets */; };
 		60FCC63E1D752F9600B8DD39 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60FCC63C1D752F9600B8DD39 /* LaunchScreen.storyboard */; };
-		60FCC6481D75B4D300B8DD39 /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FCC6471D75B4D300B8DD39 /* CategoryDetailViewController.swift */; };
 		60FCC64B1D75B64700B8DD39 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FCC64A1D75B64700B8DD39 /* CategoryTableViewCell.swift */; };
 		60FCC64D1D75BE6F00B8DD39 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FCC64C1D75BE6F00B8DD39 /* CategoryViewController.swift */; };
 /* End PBXBuildFile section */
@@ -38,11 +38,12 @@
 		606DF4141D7BC29F0050757B /* RadiusTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadiusTableViewCell.swift; sourceTree = "<group>"; };
 		606DF4371D7BE4400050757B /* ReminderListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderListController.swift; sourceTree = "<group>"; };
 		606DF4391D7BF0710050757B /* ReminderAddController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderAddController.swift; sourceTree = "<group>"; };
+		60B423981D7EE39900014D74 /* CategoryMapAnnotationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryMapAnnotationController.swift; sourceTree = "<group>"; };
 		60D927AF1D76801B00DEC6ED /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		60D927B01D76801B00DEC6ED /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		60D927B11D76801B00DEC6ED /* Reminder+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Reminder+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		60D927B21D76801B00DEC6ED /* Reminder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
-		60F94F0D1D799DD80091DEB7 /* CategoryAddTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryAddTableController.swift; sourceTree = "<group>"; };
+		60F94F0D1D799DD80091DEB7 /* CategoryDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailController.swift; sourceTree = "<group>"; };
 		60F94F0F1D79AAA30091DEB7 /* TextinputTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextinputTableViewCell.swift; sourceTree = "<group>"; };
 		60F94F111D79B6480091DEB7 /* LocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
 		60F94F131D79C76A0091DEB7 /* ToggleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleTableViewCell.swift; sourceTree = "<group>"; };
@@ -55,7 +56,6 @@
 		60FCC63A1D752F9600B8DD39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		60FCC63D1D752F9600B8DD39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		60FCC63F1D752F9600B8DD39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		60FCC6471D75B4D300B8DD39 /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
 		60FCC64A1D75B64700B8DD39 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		60FCC64C1D75BE6F00B8DD39 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,13 +106,13 @@
 		60FCC6451D75B3BA00B8DD39 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				60FCC6471D75B4D300B8DD39 /* CategoryDetailViewController.swift */,
 				60FCC64C1D75BE6F00B8DD39 /* CategoryViewController.swift */,
-				60F94F0D1D799DD80091DEB7 /* CategoryAddTableController.swift */,
+				60F94F0D1D799DD80091DEB7 /* CategoryDetailController.swift */,
 				60F94F171D79D2540091DEB7 /* CategoryMapController.swift */,
 				606DF4121D7B19E60050757B /* RadiusSelectController.swift */,
 				606DF4371D7BE4400050757B /* ReminderListController.swift */,
 				606DF4391D7BF0710050757B /* ReminderAddController.swift */,
+				60B423981D7EE39900014D74 /* CategoryMapAnnotationController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -216,16 +216,16 @@
 			files = (
 				606DF4131D7B19E60050757B /* RadiusSelectController.swift in Sources */,
 				606DF4381D7BE4400050757B /* ReminderListController.swift in Sources */,
-				60F94F0E1D799DD80091DEB7 /* CategoryAddTableController.swift in Sources */,
+				60F94F0E1D799DD80091DEB7 /* CategoryDetailController.swift in Sources */,
 				60F94F161D79C79D0091DEB7 /* SegementTableViewCell.swift in Sources */,
 				606DF4151D7BC29F0050757B /* RadiusTableViewCell.swift in Sources */,
 				606DF43A1D7BF0710050757B /* ReminderAddController.swift in Sources */,
 				60D927B31D76801B00DEC6ED /* Category+CoreDataProperties.swift in Sources */,
 				60FCC64B1D75B64700B8DD39 /* CategoryTableViewCell.swift in Sources */,
-				60FCC6481D75B4D300B8DD39 /* CategoryDetailViewController.swift in Sources */,
 				60F94F141D79C76A0091DEB7 /* ToggleTableViewCell.swift in Sources */,
 				60FCC6311D752F9600B8DD39 /* AppDelegate.swift in Sources */,
 				60FCC64D1D75BE6F00B8DD39 /* CategoryViewController.swift in Sources */,
+				60B423991D7EE39900014D74 /* CategoryMapAnnotationController.swift in Sources */,
 				603187141D7849D100AA904E /* CategoryColor.swift in Sources */,
 				60F94F121D79B6480091DEB7 /* LocationTableViewCell.swift in Sources */,
 				60F94F101D79AAA30091DEB7 /* TextinputTableViewCell.swift in Sources */,

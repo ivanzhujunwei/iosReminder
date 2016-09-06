@@ -17,7 +17,9 @@ class ReminderListController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Q: create a new NSArray or the reference of previou object
         reminders = categoryToView.reminders?.allObjects
+        tableView.tableFooterView = UIView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,6 +45,7 @@ class ReminderListController: UITableViewController {
         {
             let cell = tableView.dequeueReusableCellWithIdentifier("categoryBriefCell", forIndexPath: indexPath)
             cell.textLabel?.text = categoryToView.title
+            cell.detailTextLabel?.text = categoryToView.location
             return cell
         }
         else{
@@ -52,6 +55,13 @@ class ReminderListController: UITableViewController {
             cell.textLabel?.text = reminder.title
             return cell
         }
+    }
+    
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 20
+        }
+        return 0
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -64,7 +74,10 @@ class ReminderListController: UITableViewController {
             let addReminderController = segue.destinationViewController as! ReminderAddController
             addReminderController.managedObjectContext = self.managedObjectContext
             addReminderController.currentCategory = self.categoryToView
-            
+        } else if segue.identifier == "editCategorySegue" {
+            let editCategoryController = segue.destinationViewController as! CategoryAddTableController
+            editCategoryController.managedObjectContext = self.managedObjectContext
+            editCategoryController.category = self.categoryToView
         }
     }
 
@@ -76,17 +89,27 @@ class ReminderListController: UITableViewController {
     }
     */
 
-    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        if( indexPath.section == 1){
+            if editingStyle == .Delete {
+                // Delete the row from the data source
+                let rlist = categoryToView.reminders?.allObjects
+                managedObjectContext!.deleteObject(rlist![indexPath.row] as! NSManagedObject)
+                
+//                categoryToView.reminders?.delete(<#T##sender: AnyObject?##AnyObject?#>)
+//                categoryToView.reminders?.allObjects.removeAtIndex(indexPath)
+                
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                // save the managedObjectContext
+                do{
+                    try self.managedObjectContext!.save()
+                }catch let error {
+                    print("Could not save reminder Deletion \(error)")
+                }
+            }
+        }
     }
-    */
 
     /*
     // Override to support rearranging the table view.

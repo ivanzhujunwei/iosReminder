@@ -24,7 +24,7 @@ class ReminderAddController: UIViewController {
         remindersCollection.addObject(reminderToAdd!)
         currentCategory?.reminders? = remindersCollection
         do{
-            try managedObjectContext?.save()
+            try self.managedObjectContext?.save()
         }catch{
             fatalError("Failure to save context: \(error)")
         }
@@ -39,6 +39,8 @@ class ReminderAddController: UIViewController {
         super.viewDidLoad()
         self.noteField.layer.borderColor = UIColor.blackColor().CGColor
         self.noteField.layer.borderWidth = 0.5
+        self.titleField.layer.borderWidth = 0.5
+        self.titleField.layer.borderColor = UIColor.blackColor().CGColor
     }
 
     override func didReceiveMemoryWarning() {

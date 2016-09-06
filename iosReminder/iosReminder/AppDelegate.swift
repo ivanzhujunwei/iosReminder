@@ -13,18 +13,31 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+//    var categoryList: [Category]?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-
-        let tabBarController = self.window?.rootViewController as! UITabBarController
-        
-        let categoryViewController = tabBarController.viewControllers![0] as? CategoryViewController
-        
-        categoryViewController?.managedObjectContext = self.managedObjectContext
-        
+//        let tabBarController = self.window?.rootViewController as! UITabBarController
+//        let categoryViewController = tabBarController.viewControllers![0] as? CategoryViewController
+//        let categoryMapAnotationController = tabBarController.viewControllers![1] as? CategoryMapAnnotationController
+//        categoryViewController?.managedObjectContext = self.managedObjectContext
+//        categoryMapAnotationController?.managedObjectContext = self.managedObjectContext
+//        fetchData()
+        // this didn't work
+//        categoryViewController?.categoryList = self.categoryList
         return true
     }
+    
+//    func fetchData(){
+//        let fetch = NSFetchRequest(entityName: "Category")
+//        //Q: how to "rerange"
+//        //        let prioritySort  = NSSortDescriptor(key: "priority", ascending: false)
+//        do{
+//            let fetchResults = try managedObjectContext.executeFetchRequest(fetch) as! [Category]
+//            categoryList = fetchResults
+//        }catch{
+//            fatalError("Failed to fetch category information: \(error)")
+//        }
+//    }
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
