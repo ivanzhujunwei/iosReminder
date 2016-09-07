@@ -16,4 +16,7 @@ class Category: NSManagedObject {
 //    func addReminder(reminder:Reminder) {
 //        self.reminders?.allObjects.
 //    }
+    func getAnnotationPopupTitle() -> String{
+        return self.title! + " " + String(self.radius!) + "m"
+    }
 }

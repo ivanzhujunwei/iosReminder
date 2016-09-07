@@ -12,6 +12,7 @@
 		606DF4151D7BC29F0050757B /* RadiusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DF4141D7BC29F0050757B /* RadiusTableViewCell.swift */; };
 		606DF4381D7BE4400050757B /* ReminderListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DF4371D7BE4400050757B /* ReminderListController.swift */; };
 		606DF43A1D7BF0710050757B /* ReminderAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DF4391D7BF0710050757B /* ReminderAddController.swift */; };
+		607BCC961D7FFD9900AA7985 /* CategoryAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607BCC951D7FFD9900AA7985 /* CategoryAnnotation.swift */; };
 		60B423991D7EE39900014D74 /* CategoryMapAnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B423981D7EE39900014D74 /* CategoryMapAnnotationController.swift */; };
 		60D927B31D76801B00DEC6ED /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D927AF1D76801B00DEC6ED /* Category+CoreDataProperties.swift */; };
 		60D927B41D76801B00DEC6ED /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D927B01D76801B00DEC6ED /* Category.swift */; };
@@ -38,6 +39,7 @@
 		606DF4141D7BC29F0050757B /* RadiusTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadiusTableViewCell.swift; sourceTree = "<group>"; };
 		606DF4371D7BE4400050757B /* ReminderListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderListController.swift; sourceTree = "<group>"; };
 		606DF4391D7BF0710050757B /* ReminderAddController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderAddController.swift; sourceTree = "<group>"; };
+		607BCC951D7FFD9900AA7985 /* CategoryAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryAnnotation.swift; sourceTree = "<group>"; };
 		60B423981D7EE39900014D74 /* CategoryMapAnnotationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryMapAnnotationController.swift; sourceTree = "<group>"; };
 		60D927AF1D76801B00DEC6ED /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		60D927B01D76801B00DEC6ED /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				60FCC63C1D752F9600B8DD39 /* LaunchScreen.storyboard */,
 				60FCC63F1D752F9600B8DD39 /* Info.plist */,
 				60FCC6371D752F9600B8DD39 /* iosReminder.xcdatamodeld */,
+				607BCC951D7FFD9900AA7985 /* CategoryAnnotation.swift */,
 			);
 			path = iosReminder;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 				60F94F181D79D2540091DEB7 /* CategoryMapController.swift in Sources */,
 				60D927B51D76801B00DEC6ED /* Reminder+CoreDataProperties.swift in Sources */,
 				60D927B61D76801B00DEC6ED /* Reminder.swift in Sources */,
+				607BCC961D7FFD9900AA7985 /* CategoryAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

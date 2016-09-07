@@ -103,6 +103,20 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.reloadData()
+        iniMapAnnotationView()
+    }
+    
+    // initilatise values for CategoryMapAnnotationController
+    func iniMapAnnotationView(){
+        // pass the categoryList to mapview
+        
+        //let tabBarController = self.window?.rootViewController as! UITabBarController
+        //        let categoryViewController = tabBarController.viewControllers![0] as? CategoryViewController
+
+        // why do I need to use childViewControllers here?
+        let mapAnotationController = self.tabBarController?.viewControllers![1].childViewControllers[0] as! CategoryMapAnnotationController
+        mapAnotationController.categoryList = self.categoryList
+        mapAnotationController.managedObjectContext = self.managedObjectContext
     }
 
     /*

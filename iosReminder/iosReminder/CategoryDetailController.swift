@@ -246,6 +246,10 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
             //            viewCategoryController.addCategoryDelegate = self
             let mapController = segue.destinationViewController as! CategoryMapController
             mapController.setLocationDelegate = self
+            if (isAddCategory == false) {
+                let editCoordinate : CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: Double(category!.latitude!), longitude: Double(category!.longitude!))
+                mapController.location = editCoordinate
+            }
         }
     }
     

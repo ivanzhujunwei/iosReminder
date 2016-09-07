@@ -16,6 +16,9 @@ protocol SetLocationDelegate{
 class CategoryMapController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet var searchBar: UISearchBar!
+    
+    var location :CLLocationCoordinate2D?
+//    var isAddLocation : Bool?
     let locationManager = CLLocationManager()
     let geocoder = CLGeocoder()
     var setLocationDelegate: SetLocationDelegate?
@@ -79,6 +82,9 @@ class CategoryMapController: UIViewController, MKMapViewDelegate, CLLocationMana
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.startUpdatingLocation()
         self.mapView.showsUserLocation = true
+//        if location == nil {
+//            isAddLocation = true
+//        }
         // Do any additional setup after loading the view.
     }
 
@@ -88,10 +94,19 @@ class CategoryMapController: UIViewController, MKMapViewDelegate, CLLocationMana
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        // reference: www.youtube.com/watch?v=qrdIL44T6FQ
-        let location = locations.last
-        // CLLocationCoordinate2D: A structure that contains a geographical coordinate
-        let center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
+        var center = CLLocationCoordinate2D()
+        if (location == nil){
+            // reference: www.youtube.com/watch?v=qrdIL44T6FQ
+            let location = locations.last
+            // CLLocationCoordinate2D: A structure that contains a geographical coordinate
+            center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
+        }else{
+            center = self.location!
+            // Add marker for each location
+            let mapAnnotation = CategoryAnnotation()
+            mapAnnotation.setCoordinate(center)
+            mapView.addAnnotation(mapAnnotation)
+        }
         // MKCoordinateRegion: A structure that defines which portion of the map to display
         // MKCoordinateSpan: A structure that defines the area spanned by a map region
         // Q: why when the latitudeDelta becomes bigger, the zoom level becomes low?
