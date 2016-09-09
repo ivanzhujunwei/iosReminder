@@ -162,7 +162,7 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
             return cell
         case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("radiusCell", forIndexPath: indexPath) as! RadiusTableViewCell
-            cell.radiusDisplayField.text = "50"
+            cell.radiusDisplayField.text = "2500"
             return cell
         case 3:
             let cell = tableView.dequeueReusableCellWithIdentifier("colorCell", forIndexPath: indexPath) as! CategoryTableViewCell

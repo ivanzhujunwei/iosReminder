@@ -20,10 +20,16 @@ class CategoryAnnotation: NSObject, MKAnnotation{
     
     var title: String?
     var subtitle: String?
-
     var catgory:Category?
     
     func setCoordinate(newCoordinate: CLLocationCoordinate2D) {
         self.coord = newCoordinate
+    }
+    
+    // assemble catogry's information with the annotation
+    func assembleCategoryInfo(category: Category){
+        self.setCoordinate(category.getCoordinate())
+        self.title = category.getAnnotationPopupTitle()
+        self.catgory = category
     }
 }

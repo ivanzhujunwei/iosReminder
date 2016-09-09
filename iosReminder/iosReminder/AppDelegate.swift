@@ -16,6 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //    var categoryList: [Category]?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        // Enable local notifcations
+        let supportedNotificationTypes:UIUserNotificationType = [.Alert, .Badge, .Sound]
+        let notificationSettings = UIUserNotificationSettings(forTypes: supportedNotificationTypes, categories: nil)
+        application.registerUserNotificationSettings(notificationSettings)
 //        let tabBarController = self.window?.rootViewController as! UITabBarController
 //        let categoryViewController = tabBarController.viewControllers![0] as? CategoryViewController
 //        let categoryMapAnotationController = tabBarController.viewControllers![1] as? CategoryMapAnnotationController

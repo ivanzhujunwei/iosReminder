@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-
+import MapKit
 
 class Category: NSManagedObject {
 
@@ -18,5 +18,21 @@ class Category: NSManagedObject {
 //    }
     func getAnnotationPopupTitle() -> String{
         return self.title! + " " + String(self.radius!) + "m"
+    }
+    
+    func getRadius() -> Double{
+        return Double(self.radius!)
+    }
+    
+    func getLongitude() -> Double{
+        return Double(self.longitude!)
+    }
+    
+    func getLatitude() -> Double{
+        return Double(self.latitude!)
+    }
+    
+    func getCoordinate() -> CLLocationCoordinate2D{
+        return CLLocationCoordinate2D(latitude: getLatitude(), longitude: getLongitude())
     }
 }

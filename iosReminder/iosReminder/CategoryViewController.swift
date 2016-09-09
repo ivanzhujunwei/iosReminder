@@ -44,9 +44,9 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
     }
     
     func addCategory(category: Category) {
-        let newIndexPath = NSIndexPath(forRow: categoryList.count, inSection: 0)
+//        let newIndexPath = NSIndexPath(forRow: categoryList.count, inSection: 0)
         categoryList.append(category)
-        tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+//        tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         do{
             try managedObjectContext.save()
         }catch{

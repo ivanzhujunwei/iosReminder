@@ -35,33 +35,72 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
 //        let categoryViewController = self.tabBarController!.viewControllers![0] as? CategoryViewController
 //        self.categoryList = categoryViewController!.categoryList
 //        addAnnotations()
+        self.locationManager.startUpdatingLocation()
+        self.mapView.showsUserLocation = true
     }
     
     func addAnnotations(){
         // remove previous annotations before add annotations
         mapView.removeAnnotations(self.mapView.annotations)
+        // remove previous radius circles
+        mapView.removeOverlays(self.mapView.overlays)
         for cate in categoryList!{
             // if the location information is not null
             if (cate.latitude != nil && cate.longitude != nil){
-                let latitude = Double(cate.latitude!)
-                let longitutde = Double(cate.longitude!)
-                let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitutde)
-                // MapsDemo
-                // Add marker for each location
+                let coordinate = cate.getCoordinate()
+                // add marker for each location
                 let mapAnnotation = CategoryAnnotation()
-                mapAnnotation.setCoordinate(coordinate)
-//                mapAnnotation.coordinate = coordinate
-                mapAnnotation.title = cate.getAnnotationPopupTitle()
-                mapAnnotation.catgory = cate
-//                mapAnnotation.
+                mapAnnotation.assembleCategoryInfo(cate)
                 mapView.addAnnotation(mapAnnotation)
                 // add circle for each annotation
-                let circle = MKCircle(centerCoordinate: coordinate, radius: Double(cate.radius!))
+                let circle = MKCircle(centerCoordinate: coordinate, radius: cate.getRadius())
                 self.mapView.setRegion(MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)), animated: true)
                 mapView.addOverlay(circle)
+                // add monitoring circules
+                let geofence = CLCircularRegion(center: coordinate, radius: cate.getRadius(), identifier: cate.title!)
+                locationManager.startMonitoringForRegion(geofence)
             }
         }
     }
+    
+    // MARK: CLLocationManagerDelegate
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        // Only show user location in MapView if user has authorized location tracking
+        mapView.showsUserLocation = (status == .AuthorizedAlways)
+    }
+    
+    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+        // Zoom to new user location when updated
+        var mapRegion = MKCoordinateRegion()
+        mapRegion.center = mapView.userLocation.coordinate
+        mapRegion.span = mapView.region.span; // Use current 'zoom'
+        mapView.setRegion(mapRegion, animated: true)
+    }
+    
+    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        print("Entered region \(region.identifier)")
+        // Notify the user when they have entered a region
+        let title = "Entered new region"
+        let message = "You have arrived at \(region.identifier)."
+        if UIApplication.sharedApplication().applicationState == .Active {
+            // App is active, show an alert
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+            let alertAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            alertController.addAction(alertAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        } else {
+            // App is inactive, show a notification
+            let notification = UILocalNotification()
+            notification.alertTitle = title
+            notification.alertBody = message
+            UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+        print("Exited region \(region.identifier)")
+    }
+
     
     // reference: stackoverflow.com/questions/33053832/swift-perform-segue-from-map-annotation
     // Called when the annotation was added
@@ -74,6 +113,8 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView?.animatesDrop = true
+            // If YES, a standard callout bubble will be shown when the annotation is selected.
+            // The annotation must have a title for the callout to be shown.
             pinView?.canShowCallout = true
             let rightButton: AnyObject! = UIButton(type: UIButtonType.DetailDisclosure)
             pinView?.rightCalloutAccessoryView = rightButton as? UIView

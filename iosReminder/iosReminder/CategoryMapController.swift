@@ -65,7 +65,6 @@ class CategoryMapController: UIViewController, MKMapViewDelegate, CLLocationMana
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.searchBar.delegate = self
         self.mapView.delegate = self
         // The delegate object to receive update events
         self.locationManager.delegate   = self
@@ -80,12 +79,9 @@ class CategoryMapController: UIViewController, MKMapViewDelegate, CLLocationMana
         // Ask user for permission to use location
         // Uses description from NSLocationAlwaysUsageDescription in Info.plist
         self.locationManager.requestAlwaysAuthorization()
+        // start update location, without the statement, the map won't zoom in
         self.locationManager.startUpdatingLocation()
         self.mapView.showsUserLocation = true
-//        if location == nil {
-//            isAddLocation = true
-//        }
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {

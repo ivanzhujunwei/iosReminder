@@ -9,16 +9,16 @@
 import UIKit
 import CoreData
 
-class ReminderListController: UITableViewController {
+class ReminderListController: UITableViewController, AddReminderDelegate {
     
     var categoryToView: Category!
-    var reminders: NSArray!
+//    var reminders: NSArray!
     var managedObjectContext: NSManagedObjectContext?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Q: create a new NSArray or the reference of previou object
-        reminders = categoryToView.reminders?.allObjects
+//        reminders = categoryToView.reminders?.allObjects
         tableView.tableFooterView = UIView()
     }
 
@@ -69,15 +69,38 @@ class ReminderListController: UITableViewController {
         self.tableView.reloadData()
     }
     
+    func addReminder(reminder: Reminder) {
+//        let newIndexPath = NSIndexPath(forRow: categoryToView.reminders!.count, inSection: 1)
+        let newSet = NSMutableSet(set: categoryToView.reminders!)
+        newSet.addObject(reminder)
+        categoryToView.reminders = newSet
+//        categoryList.append(category)
+//        tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+        do{
+            try managedObjectContext!.save()
+        }catch{
+            fatalError("Failure to save context: \(error)")
+        }
+
+    }
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "addReminderSegue" {
             let addReminderController = segue.destinationViewController as! ReminderAddController
             addReminderController.managedObjectContext = self.managedObjectContext
             addReminderController.currentCategory = self.categoryToView
+            addReminderController.addReminderDelegate = self
+            
         } else if segue.identifier == "editCategorySegue" {
             let editCategoryController = segue.destinationViewController as! CategoryAddTableController
             editCategoryController.managedObjectContext = self.managedObjectContext
             editCategoryController.category = self.categoryToView
+            
+        } else if segue.identifier == "viewReminderSegue" {
+            let viewReminderController = segue.destinationViewController as! ReminderAddController
+            let indexPath = tableView.indexPathForSelectedRow
+            viewReminderController.reminder = categoryToView.reminders?.allObjects[indexPath!.row] as? Reminder
+            viewReminderController.currentCategory = self.categoryToView
         }
     }
 
@@ -92,14 +115,16 @@ class ReminderListController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if( indexPath.section == 1){
+            // Delete the row from the data source
             if editingStyle == .Delete {
-                // Delete the row from the data source
                 let rlist = categoryToView.reminders?.allObjects
-                managedObjectContext!.deleteObject(rlist![indexPath.row] as! NSManagedObject)
-                
-//                categoryToView.reminders?.delete(<#T##sender: AnyObject?##AnyObject?#>)
-//                categoryToView.reminders?.allObjects.removeAtIndex(indexPath)
-                
+                let reminder = rlist![indexPath.row] as! NSManagedObject
+                // Delete the object from object context
+                managedObjectContext!.deleteObject(reminder)
+                // Delete the reminder from the category
+                let newSet = NSMutableSet(set: categoryToView.reminders!)
+                newSet.removeObject(reminder)
+                categoryToView.reminders = newSet
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
                 // save the managedObjectContext
                 do{

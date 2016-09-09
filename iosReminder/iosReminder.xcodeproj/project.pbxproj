@@ -11,7 +11,7 @@
 		606DF4131D7B19E60050757B /* RadiusSelectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DF4121D7B19E60050757B /* RadiusSelectController.swift */; };
 		606DF4151D7BC29F0050757B /* RadiusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DF4141D7BC29F0050757B /* RadiusTableViewCell.swift */; };
 		606DF4381D7BE4400050757B /* ReminderListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DF4371D7BE4400050757B /* ReminderListController.swift */; };
-		606DF43A1D7BF0710050757B /* ReminderAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DF4391D7BF0710050757B /* ReminderAddController.swift */; };
+		606DF43A1D7BF0710050757B /* ReminderDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DF4391D7BF0710050757B /* ReminderDetailController.swift */; };
 		607BCC961D7FFD9900AA7985 /* CategoryAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607BCC951D7FFD9900AA7985 /* CategoryAnnotation.swift */; };
 		60B423991D7EE39900014D74 /* CategoryMapAnnotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B423981D7EE39900014D74 /* CategoryMapAnnotationController.swift */; };
 		60D927B31D76801B00DEC6ED /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D927AF1D76801B00DEC6ED /* Category+CoreDataProperties.swift */; };
@@ -38,7 +38,7 @@
 		606DF4121D7B19E60050757B /* RadiusSelectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadiusSelectController.swift; sourceTree = "<group>"; };
 		606DF4141D7BC29F0050757B /* RadiusTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadiusTableViewCell.swift; sourceTree = "<group>"; };
 		606DF4371D7BE4400050757B /* ReminderListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderListController.swift; sourceTree = "<group>"; };
-		606DF4391D7BF0710050757B /* ReminderAddController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderAddController.swift; sourceTree = "<group>"; };
+		606DF4391D7BF0710050757B /* ReminderDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderDetailController.swift; sourceTree = "<group>"; };
 		607BCC951D7FFD9900AA7985 /* CategoryAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryAnnotation.swift; sourceTree = "<group>"; };
 		60B423981D7EE39900014D74 /* CategoryMapAnnotationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryMapAnnotationController.swift; sourceTree = "<group>"; };
 		60D927AF1D76801B00DEC6ED /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 				60F94F171D79D2540091DEB7 /* CategoryMapController.swift */,
 				606DF4121D7B19E60050757B /* RadiusSelectController.swift */,
 				606DF4371D7BE4400050757B /* ReminderListController.swift */,
-				606DF4391D7BF0710050757B /* ReminderAddController.swift */,
+				606DF4391D7BF0710050757B /* ReminderDetailController.swift */,
 				60B423981D7EE39900014D74 /* CategoryMapAnnotationController.swift */,
 			);
 			name = ViewControllers;
@@ -222,7 +222,7 @@
 				60F94F0E1D799DD80091DEB7 /* CategoryDetailController.swift in Sources */,
 				60F94F161D79C79D0091DEB7 /* SegementTableViewCell.swift in Sources */,
 				606DF4151D7BC29F0050757B /* RadiusTableViewCell.swift in Sources */,
-				606DF43A1D7BF0710050757B /* ReminderAddController.swift in Sources */,
+				606DF43A1D7BF0710050757B /* ReminderDetailController.swift in Sources */,
 				60D927B31D76801B00DEC6ED /* Category+CoreDataProperties.swift in Sources */,
 				60FCC64B1D75B64700B8DD39 /* CategoryTableViewCell.swift in Sources */,
 				60F94F141D79C76A0091DEB7 /* ToggleTableViewCell.swift in Sources */,
