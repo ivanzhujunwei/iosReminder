@@ -10,14 +10,22 @@ import Foundation
 import UIKit
 
 enum CategoryColor : String{
-    case Red, Blue
+    case Red, Orange, Purple, Blue, Green, Grey
     
-    var color:UIColor {
+    var color : UIColor {
         switch self {
-        case .Blue:
-            return UIColor.blueColor()
         case .Red:
             return UIColor.redColor()
+        case .Blue:
+            return UIColor.blueColor()
+        case .Orange:
+            return UIColor.orangeColor()
+        case .Purple:
+            return UIColor.purpleColor()
+        case .Green:
+            return UIColor.greenColor()
+        case .Grey:
+            return UIColor.lightGrayColor()
         }
     }
 }
