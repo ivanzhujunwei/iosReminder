@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		603187141D7849D100AA904E /* CategoryColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603187131D7849D100AA904E /* CategoryColor.swift */; };
+		606829771D8284C6007AD572 /* ColorSelectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606829761D8284C6007AD572 /* ColorSelectController.swift */; };
 		606DF4131D7B19E60050757B /* RadiusSelectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DF4121D7B19E60050757B /* RadiusSelectController.swift */; };
 		606DF4151D7BC29F0050757B /* RadiusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DF4141D7BC29F0050757B /* RadiusTableViewCell.swift */; };
 		606DF4381D7BE4400050757B /* ReminderListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606DF4371D7BE4400050757B /* ReminderListController.swift */; };
@@ -35,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		603187131D7849D100AA904E /* CategoryColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryColor.swift; sourceTree = "<group>"; };
+		606829761D8284C6007AD572 /* ColorSelectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSelectController.swift; sourceTree = "<group>"; };
 		606DF4121D7B19E60050757B /* RadiusSelectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadiusSelectController.swift; sourceTree = "<group>"; };
 		606DF4141D7BC29F0050757B /* RadiusTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadiusTableViewCell.swift; sourceTree = "<group>"; };
 		606DF4371D7BE4400050757B /* ReminderListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderListController.swift; sourceTree = "<group>"; };
@@ -112,10 +114,11 @@
 				60FCC64C1D75BE6F00B8DD39 /* CategoryViewController.swift */,
 				60F94F0D1D799DD80091DEB7 /* CategoryDetailController.swift */,
 				60F94F171D79D2540091DEB7 /* CategoryMapController.swift */,
-				606DF4121D7B19E60050757B /* RadiusSelectController.swift */,
 				606DF4371D7BE4400050757B /* ReminderListController.swift */,
 				606DF4391D7BF0710050757B /* ReminderDetailController.swift */,
 				60B423981D7EE39900014D74 /* CategoryMapAnnotationController.swift */,
+				606DF4121D7B19E60050757B /* RadiusSelectController.swift */,
+				606829761D8284C6007AD572 /* ColorSelectController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 				603187141D7849D100AA904E /* CategoryColor.swift in Sources */,
 				60F94F121D79B6480091DEB7 /* LocationTableViewCell.swift in Sources */,
 				60F94F101D79AAA30091DEB7 /* TextinputTableViewCell.swift in Sources */,
+				606829771D8284C6007AD572 /* ColorSelectController.swift in Sources */,
 				60FCC6391D752F9600B8DD39 /* iosReminder.xcdatamodeld in Sources */,
 				60D927B41D76801B00DEC6ED /* Category.swift in Sources */,
 				60F94F181D79D2540091DEB7 /* CategoryMapController.swift in Sources */,

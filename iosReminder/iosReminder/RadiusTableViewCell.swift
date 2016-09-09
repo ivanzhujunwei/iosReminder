@@ -15,11 +15,11 @@ class RadiusTableViewCell: UITableViewCell {
 //    var radiuses: [String]?
     
     // CGFloat: The basic type for floating-point scalar values in Core Graphics and related frameworks
-    @IBOutlet var ddd: UIDatePicker!
-    @IBOutlet var datepcker: UIDatePicker!
-    @IBOutlet var datepicker: UIDatePicker!
-    let expandedHeight: CGFloat = 200
-    let defaultHeight: CGFloat = 44
+//    @IBOutlet var ddd: UIDatePicker!
+//    @IBOutlet var datepcker: UIDatePicker!
+//    @IBOutlet var datepicker: UIDatePicker!
+//    let expandedHeight: CGFloat = 200
+//    let defaultHeight: CGFloat = 44
     
 //    required init?(coder aDecoder: NSCoder) {
 //
@@ -28,6 +28,12 @@ class RadiusTableViewCell: UITableViewCell {
 //    func checkHeight(){
 //        radiusPicker.hidden = frame.size.height < self.expandedHeight
 //    }
+    
+    // the radius is displayed using String which contains "m", this function get the number from the String
+    func getRadiusNumber() -> Int{
+        let radiusStr = radiusDisplayField.text?.stringByReplacingOccurrencesOfString("m", withString: "")
+        return Int(radiusStr!)!
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

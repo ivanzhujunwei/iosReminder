@@ -8,8 +8,14 @@
 
 import UIKit
 
+protocol SelectRadiusDelegate {
+    func selectRadius(radius: String)
+}
+
 class RadiusSelectController: UITableViewController {
 
+    var selectRadiusDelegate: SelectRadiusDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,10 +53,17 @@ class RadiusSelectController: UITableViewController {
             cell.textLabel?.text = "250m"
             break
         default:
-            cell.textLabel?.text = "1km"
+            cell.textLabel?.text = "1000m"
             break
         }
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let indexPath = tableView.indexPathForSelectedRow!
+        let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
+        selectRadiusDelegate?.selectRadius(currentCell.textLabel!.text!)
+        self.navigationController?.popViewControllerAnimated(true)
     }
 
     /*

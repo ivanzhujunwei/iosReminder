@@ -16,10 +16,12 @@ protocol  AddCategoryDelegate {
 }
 
 // Category add and edit controller (file name is different as class name)
-class CategoryAddTableController: UITableViewController, SetLocationDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class CategoryAddTableController: UITableViewController, SetLocationDelegate, UIPickerViewDelegate, SelectRadiusDelegate, SelectColorDelegate {
     
     var managedObjectContext : NSManagedObjectContext?
     var addCategoryDelegate: AddCategoryDelegate?
+    var selectRadiusDelegate: SelectRadiusDelegate?
+    var selectColorDelegate: SelectColorDelegate?
     // the category which is going to be edited or added
     var category : Category?
     var isAddCategory : Bool?
@@ -79,11 +81,23 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
         if let cate = category {
             titleCell.categoryTitleText.text = cate.title
             locationCell.locationDisplayField.text = cate.location
-            radiusCell.radiusDisplayField.text = String(cate.radius)
+            radiusCell.radiusDisplayField.text = cate.displayRadius()
             colorCell.colorDisplayField.text = cate.color
+            colorCell.colorDisplayField.textColor = CategoryColor(rawValue:cate.color!)?.color
             cate.toogle == 1 ? (notifyCell.switchNotify.on = true) : (notifyCell.switchNotify.on = false)
             cate.notifyByArriveOrLeave == 0 ? (whenCell.whenSegment.selectedSegmentIndex = 0) : (whenCell.whenSegment.selectedSegmentIndex = 1)
         }
+    }
+    
+    // delegate function: select a radius for the category
+    func selectRadius(radius: String) {
+        radiusCell.radiusDisplayField.text = radius
+    }
+    
+    // delegate function: select a color for the category
+    func selectColor(color: CategoryColor) {
+        colorCell.colorDisplayField.textColor = color.color
+        colorCell.colorDisplayField.text = color.rawValue
     }
     
     // Ask for the number of columns in your picker element.
@@ -111,7 +125,7 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
     @IBAction func addOrEditCategory(sender: AnyObject) {
         category?.title = titleCell.getText()
         category?.location = locationCell.locationDisplayField.text
-        category?.radius =  Double(radiusCell.radiusDisplayField.text!)
+        category?.radius =  radiusCell.getRadiusNumber()
         category?.color = colorCell.colorDisplayField.text
         notifyCell.switchNotify.on ? (category!.toogle=true) : (category!.toogle=false)
         whenCell.whenSegment.selectedSegmentIndex == 0 ? (category!.notifyByArriveOrLeave = 0) : (category!.notifyByArriveOrLeave = 1)
@@ -162,15 +176,12 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
             return cell
         case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("radiusCell", forIndexPath: indexPath) as! RadiusTableViewCell
-            cell.radiusDisplayField.text = "2500"
             return cell
         case 3:
             let cell = tableView.dequeueReusableCellWithIdentifier("colorCell", forIndexPath: indexPath) as! CategoryTableViewCell
-            cell.colorDisplayField.text = "red"
             return cell
         case 4:
             let cell = tableView.dequeueReusableCellWithIdentifier("notifyCell", forIndexPath: indexPath) as! ToggleTableViewCell
-//            cell.switchNotify.on = true
             return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("whenCell", forIndexPath: indexPath) as! SegementTableViewCell
@@ -250,6 +261,12 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
                 let editCoordinate : CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: Double(category!.latitude!), longitude: Double(category!.longitude!))
                 mapController.location = editCoordinate
             }
+        }else if (segue.identifier == "selectRadiusSegue"){
+            let radiusController = segue.destinationViewController as! RadiusSelectController
+            radiusController.selectRadiusDelegate = self
+        }else if (segue.identifier == "selectColorSegue"){
+            let colorController = segue.destinationViewController as! ColorSelectController
+            colorController.selectColorDelegate = self
         }
     }
     
