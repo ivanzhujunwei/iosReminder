@@ -54,13 +54,14 @@ class ReminderAddController: UIViewController, UITextViewDelegate {
         }
 
         let remindersCollection = currentCategory?.valueForKeyPath("reminders") as! NSMutableSet
+        // bind the currentCategory to this reminder because reminder has a attribute which is cateogry
+        reminder?.category = currentCategory
         remindersCollection.addObject(reminder!)
         currentCategory?.reminders? = remindersCollection
         if isAddReminder == true {
             addReminderDelegate?.addReminder(reminder!)
         }else{
             do{
-                // can't save the data if restart the app
                 try self.managedObjectContext?.save()
             }catch{
                 fatalError("Failure to save context: \(error)")
