@@ -24,6 +24,12 @@ class Category: NSManagedObject {
         return Double(self.radius!)
     }
     
+    // return display information for "radius"
+    func displayRadius() -> String{
+        // convert to Int first to remove the zero after the decimal point, then convert to string
+        return String(Int(getRadius())) + "m"
+    }
+    
     func getLongitude() -> Double{
         return Double(self.longitude!)
     }
