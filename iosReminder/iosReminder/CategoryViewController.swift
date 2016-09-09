@@ -78,6 +78,7 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
         let category = categoryList[indexPath.row]
         cell.textLabel?.text = category.title
         cell.detailTextLabel?.text = category.location
+        cell.textLabel?.textColor = CategoryColor(rawValue: category.color!)?.color
         return cell
     }
     
