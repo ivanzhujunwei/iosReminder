@@ -46,6 +46,7 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
             let cell = tableView.dequeueReusableCellWithIdentifier("categoryBriefCell", forIndexPath: indexPath)
             cell.textLabel?.text = categoryToView.title
             cell.detailTextLabel?.text = categoryToView.location
+            cell.textLabel?.textColor = CategoryColor(rawValue: categoryToView!.color!)?.color
             return cell
         }
         else{
@@ -53,6 +54,15 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
             let rlist = categoryToView.reminders?.allObjects
             let reminder: Reminder = rlist![indexPath.row] as! Reminder
             cell.textLabel?.text = reminder.title
+            // when the reminder is due, it should display in red
+            let currentDate = NSDate()
+            let compare = reminder.dueDate?.compare(currentDate)
+            // if the reminder is due
+            if compare == NSComparisonResult.OrderedAscending {
+                cell.textLabel?.textColor = UIColor.redColor()
+            }else{
+                cell.textLabel?.textColor = UIColor.blackColor()
+            }
             return cell
         }
     }
