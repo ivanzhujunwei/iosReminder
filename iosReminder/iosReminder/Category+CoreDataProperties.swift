@@ -2,7 +2,7 @@
 //  Category+CoreDataProperties.swift
 //  iosReminder
 //
-//  Created by zjw on 4/09/2016.
+//  Created by zjw on 9/09/2016.
 //  Copyright © 2016 FIT5140. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -22,6 +22,7 @@ extension Category {
     @NSManaged var radius: NSNumber?
     @NSManaged var title: String?
     @NSManaged var toogle: NSNumber?
+    @NSManaged var priority: NSNumber?
     @NSManaged var reminders: NSSet?
 
 }

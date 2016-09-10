@@ -34,16 +34,30 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
     func fetchData(){
         let fetch = NSFetchRequest(entityName: "Category")
         //Q: how to "rerange"
-//        let prioritySort  = NSSortDescriptor(key: "priority", ascending: false)
+        let prioritySort  = NSSortDescriptor(key: "priority", ascending: true)
+        fetch.sortDescriptors = [prioritySort]
+//        
+//        let fetchRe = NSFetchRequest(entityName: "Reminder")
+//        let completedReminderSort = NSSortDescriptor (key:"completed", ascending:true)
+//        fetchRe.sortDescriptors = [completedReminderSort]
+        
         do{
             let fetchResults = try managedObjectContext.executeFetchRequest(fetch) as! [Category]
             categoryList = fetchResults
+            
+//            let fetchReminders = try managedObjectContext.executeFetchRequest(fetchRe) as! [Reminder]
+//            let remindersss = fetchReminders
+//            for re in remindersss {
+//                print(re.title)
+//            }
         }catch{
             fatalError("Failed to fetch category information: \(error)")
         }
     }
     
     func addCategory(category: Category) {
+//        var newCategory = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: managedObjectContext) as? Category
+//        newCategory = category
 //        let newIndexPath = NSIndexPath(forRow: categoryList.count, inSection: 0)
         categoryList.append(category)
 //        tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
@@ -82,27 +96,10 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
         return cell
     }
     
-//    @IBAction func unwindToCategoryViewController(segue: UIStoryboardSegue) {
-//        print(111)
-//        if let sourceViewController = segue.sourceViewController as? CategoryAddTableController{
-//            let newCategory = sourceViewController.categoryToAdd
-//////            sourceViewController.
-////            newCategory!.title = sourceViewController.categoryToAdd
-//            // add category to table view
-//            let title = sourceViewController.categoryToAdd?.title
-//            newCategory?.title = title
-//            let newIndexPath = NSIndexPath(forRow: categoryList.count, inSection: 0)
-//            categoryList.append(newCategory!)
-//            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
-//            do{
-//                try managedObjectContext?.save()
-//            }catch{
-//                fatalError("Failure to save context: \(error)")
-//            }
-//        }
-//    }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        // Fetch data again so that the data is sorted
+        fetchData()
         self.tableView.reloadData()
         iniMapAnnotationView()
     }
