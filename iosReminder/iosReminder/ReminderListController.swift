@@ -95,7 +95,23 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
         super.viewWillAppear(animated)
         getSortedReminders()
         self.tableView.reloadData()
+        iniMonitoredCategoryRegions()
     }
+    
+    // initilatise values for CategoryMapAnnotationController
+    func iniMonitoredCategoryRegions(){
+        // pass the categoryList to mapview
+        
+        //let tabBarController = self.window?.rootViewController as! UITabBarController
+        //        let categoryViewController = tabBarController.viewControllers![0] as? CategoryViewController
+        
+        // why do I need to use childViewControllers here?
+        let mapAnotationController = self.tabBarController?.viewControllers![1].childViewControllers[0] as! CategoryMapAnnotationController
+        // If user does not enter this view controller, the monitoried regions' reminder information will not update if user update/add/delete a reminder
+        mapAnotationController.clearMonitoredRegions()
+        mapAnotationController.startMonitorCategoryRegions()
+    }
+
     
     func addReminder(reminder: Reminder) {
 //        let newIndexPath = NSIndexPath(forRow: categoryToView.reminders!.count, inSection: 1)
@@ -158,6 +174,7 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
                 // save the managedObjectContext
                 do{
                     try self.managedObjectContext!.save()
+                    iniMonitoredCategoryRegions()
                 }catch let error {
                     print("Could not save reminder Deletion \(error)")
                 }

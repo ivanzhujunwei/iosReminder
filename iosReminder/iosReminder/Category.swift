@@ -55,7 +55,13 @@ class Category: NSManagedObject {
     }
     
     func generateNotifyMessage() -> String{
-        var message = "You have arrived at " + self.location! + ", "
+        var message = ""
+        if self.notifyByArriveOrLeave == 0 {
+            message = "You have arrived at "
+        }else {
+            message = "You are leaving from "
+        }
+        message += self.location! + ", "
         message += String(getInCompleteReminderCount()) + " reminders need to be completed."
         return message
     }

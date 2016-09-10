@@ -115,6 +115,9 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
         let mapAnotationController = self.tabBarController?.viewControllers![1].childViewControllers[0] as! CategoryMapAnnotationController
         mapAnotationController.categoryList = self.categoryList
         mapAnotationController.managedObjectContext = self.managedObjectContext
+        // If user does not enter this view controller, the monitoried regions' reminder information will not update if user update/add/delete a reminder
+        mapAnotationController.clearMonitoredRegions()
+        mapAnotationController.startMonitorCategoryRegions()
     }
 
     /*
@@ -134,7 +137,8 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             // save the managedObjectContext
             do{
-               try self.managedObjectContext.save()
+                try self.managedObjectContext.save()
+                iniMapAnnotationView()
             }catch let error {
                 print("Could not save Deletion \(error)")
             }
