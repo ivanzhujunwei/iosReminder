@@ -33,8 +33,6 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
         locationManager.requestAlwaysAuthorization()
         // when I put the code here, the categoryViewController is nil
 //        let categoryViewController = self.tabBarController!.viewControllers![0] as? CategoryViewController
-//        self.categoryList = categoryViewController!.categoryList
-//        addAnnotations()
         self.locationManager.startUpdatingLocation()
         self.mapView.showsUserLocation = true
     }
@@ -57,7 +55,7 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
                 self.mapView.setRegion(MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)), animated: true)
                 mapView.addOverlay(circle)
                 // add monitoring circules
-                let geofence = CLCircularRegion(center: coordinate, radius: cate.getRadius(), identifier: cate.title!)
+                let geofence = CLCircularRegion(center: coordinate, radius: cate.getRadius(), identifier: cate.generateNotifyMessage())
                 locationManager.startMonitoringForRegion(geofence)
             }
         }
@@ -78,13 +76,12 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
     }
     
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        print("Entered region \(region.identifier)")
         // Notify the user when they have entered a region
-        let title = "Entered new region"
-        let message = "You have arrived at \(region.identifier)."
+        let title = "Arrived at Category Map"
+//        let message = "You have arrived at \(region.identifier)."
         if UIApplication.sharedApplication().applicationState == .Active {
             // App is active, show an alert
-            let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+            let alertController = UIAlertController(title: title, message: region.identifier, preferredStyle: .Alert)
             let alertAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
             alertController.addAction(alertAction)
             self.presentViewController(alertController, animated: true, completion: nil)
@@ -92,7 +89,7 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
             // App is inactive, show a notification
             let notification = UILocalNotification()
             notification.alertTitle = title
-            notification.alertBody = message
+            notification.alertBody = region.identifier
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         }
     }

@@ -42,7 +42,24 @@ class Category: NSManagedObject {
         return CLLocationCoordinate2D(latitude: getLatitude(), longitude: getLongitude())
     }
     
-//    func getCopyCategory(category:Category) -> Category{
-//        var newCategory =
-//    }
+    // get how many reminders are imcomplete in this category
+    func getInCompleteReminderCount() -> Int{
+        var incompleteReminderCount = 0
+        for reminder in self.reminders!{
+            let rem = reminder as! Reminder
+            if (!Bool(rem.completed!)){
+              incompleteReminderCount += 1
+            }
+        }
+        return incompleteReminderCount
+    }
+    
+    func generateNotifyMessage() -> String{
+        var message = "You have arrived at " + self.location! + ", "
+        message += String(getInCompleteReminderCount()) + " reminders need to be completed."
+        return message
+    }
+    
+    
+    
 }
