@@ -287,19 +287,19 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose location" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GUY-Rl-P7X">
-                                            <rect key="frame" x="218" y="11" width="124" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GUY-Rl-P7X">
+                                            <rect key="frame" x="342" y="11" width="0.0" height="0.0"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="GUY-Rl-P7X" firstAttribute="centerY" secondItem="svy-K3-c0Q" secondAttribute="centerY" id="M3Y-Wi-fFg"/>
+                                        <constraint firstItem="GUY-Rl-P7X" firstAttribute="top" secondItem="pkB-Ll-7B3" secondAttribute="topMargin" constant="3" id="43q-OT-buD"/>
                                         <constraint firstItem="svy-K3-c0Q" firstAttribute="centerY" secondItem="pkB-Ll-7B3" secondAttribute="centerY" id="VCP-Df-HST"/>
                                         <constraint firstItem="svy-K3-c0Q" firstAttribute="leading" secondItem="pkB-Ll-7B3" secondAttribute="leadingMargin" constant="13" id="VcJ-MR-Waa"/>
-                                        <constraint firstAttribute="trailing" secondItem="GUY-Rl-P7X" secondAttribute="trailing" id="Wr4-zf-YcU"/>
                                         <constraint firstItem="svy-K3-c0Q" firstAttribute="top" secondItem="pkB-Ll-7B3" secondAttribute="top" id="sx9-6a-yUm"/>
+                                        <constraint firstAttribute="trailing" secondItem="GUY-Rl-P7X" secondAttribute="trailing" id="yDE-Mt-pbb"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

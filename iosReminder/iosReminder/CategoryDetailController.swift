@@ -136,10 +136,22 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
     }
     
     @IBAction func addOrEditCategory(sender: AnyObject) {
+        // if title or location is nil, can't save the category
+        if titleCell.getText().stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) == ""
+        {
+            self.showAlertWithDismiss("Invalid input", message: "Reminder title can not be empty")
+            return
+        }
+        if locationCell.locationDisplayField.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) == ""
+        {
+            self.showAlertWithDismiss("Invalid input", message: "Location can not be empty")
+            return
+        }
         // If category is nil, create a new one in managed object context
         if (category == nil) {
             category = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: managedObjectContext!) as? Category
         }
+        
         category?.title = titleCell.getText()
         category?.location = locationCell.locationDisplayField.text
         category?.radius =  radiusCell.getRadiusNumber()
@@ -157,6 +169,14 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
             }
         }
         self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    
+    func showAlertWithDismiss(title:String, message:String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let alertDismissAction = UIAlertAction(title: "Re-enter", style: .Default, handler: nil)
+        alertController.addAction(alertDismissAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     func setLocation(locationName: String, longitude: Double, latitude: Double) {

@@ -8,7 +8,7 @@
         <attribute name="notifyByArriveOrLeave" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="priority" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="radius" optional="YES" attributeType="Integer 16" minValueString="50" defaultValueString="250" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" minValueString="1" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="toogle" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="reminders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Reminder" inverseName="category" inverseEntity="Reminder" syncable="YES"/>
     </entity>
@@ -20,7 +20,7 @@
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="reminders" inverseEntity="Category" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Category" positionX="-63" positionY="-18" width="128" height="193"/>
+        <element name="Category" positionX="-63" positionY="-18" width="128" height="195"/>
         <element name="Reminder" positionX="178" positionY="12" width="128" height="120"/>
     </elements>
 </model>

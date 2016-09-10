@@ -50,6 +50,11 @@ class ReminderAddController: UIViewController, UITextViewDelegate {
         if isAddReminder == true {
             reminder = NSEntityDescription.insertNewObjectForEntityForName("Reminder", inManagedObjectContext: managedObjectContext!) as? Reminder
         }
+        if titleField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) == ""
+        {
+            showAlertWithDismiss("Invalid input", message: "Category title can not be empty")
+            return
+        }
         reminder?.title = self.titleField.text
         reminder?.note = self.noteField.text
         // if completedSwitch is on, reminder's completed state is completed
@@ -75,6 +80,12 @@ class ReminderAddController: UIViewController, UITextViewDelegate {
         self.navigationController?.popViewControllerAnimated(true)
     }
     
+    func showAlertWithDismiss(title:String, message:String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let alertDismissAction = UIAlertAction(title: "Re-enter", style: .Default, handler: nil)
+        alertController.addAction(alertDismissAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

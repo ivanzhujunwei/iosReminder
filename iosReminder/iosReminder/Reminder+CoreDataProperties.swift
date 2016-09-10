@@ -2,7 +2,7 @@
 //  Reminder+CoreDataProperties.swift
 //  iosReminder
 //
-//  Created by zjw on 10/09/2016.
+//  Created by zjw on 11/09/2016.
 //  Copyright © 2016 FIT5140. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -14,10 +14,10 @@ import CoreData
 
 extension Reminder {
 
+    @NSManaged var completed: NSNumber?
     @NSManaged var dueDate: NSDate?
     @NSManaged var note: String?
     @NSManaged var title: String?
-    @NSManaged var completed: NSNumber?
     @NSManaged var category: Category?
 
 }
