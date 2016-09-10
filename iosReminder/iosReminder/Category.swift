@@ -41,4 +41,8 @@ class Category: NSManagedObject {
     func getCoordinate() -> CLLocationCoordinate2D{
         return CLLocationCoordinate2D(latitude: getLatitude(), longitude: getLongitude())
     }
+    
+//    func getCopyCategory(category:Category) -> Category{
+//        var newCategory =
+//    }
 }

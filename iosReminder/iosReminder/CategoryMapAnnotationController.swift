@@ -129,18 +129,18 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
 //            let categoryAnnotation = view.annotation as! CategoryAnnotation
-            performSegueWithIdentifier("showCategoryFromMapSegue", sender: self)
+            performSegueWithIdentifier("showReminderListFromMapSegue", sender: self)
         }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showCategoryFromMapSegue" {
-            let detailCategory = segue.destinationViewController as! CategoryAddTableController
+        if segue.identifier == "showReminderListFromMapSegue" {
+            let reminderListController = segue.destinationViewController as! ReminderListController
             let ann = self.mapView.selectedAnnotations[0] as! CategoryAnnotation
 //            theDestination.getName = (sender as! MKAnnotationView).annotation!.title!
-            detailCategory.managedObjectContext = self.managedObjectContext
+            reminderListController.managedObjectContext = self.managedObjectContext
 //            let ann = (sender as! MKAnnotationView).annotation as! CategoryAnnotation
-            detailCategory.category = ann.catgory
+            reminderListController.categoryToView = ann.catgory
         }
     }
     
