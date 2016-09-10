@@ -16,9 +16,7 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
     
     required init?(coder aDecoder:NSCoder){
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        // Q: This has already been defined in AppDelegate class, why do I need this again?
         self.managedObjectContext = appDelegate.managedObjectContext
-//        self.categoryList = appDelegate.categoryList
         super.init(coder: aDecoder)
     }
     
@@ -33,40 +31,23 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
     
     func fetchData(){
         let fetch = NSFetchRequest(entityName: "Category")
-        //Q: how to "rerange"
         let prioritySort  = NSSortDescriptor(key: "priority", ascending: true)
         fetch.sortDescriptors = [prioritySort]
-//        
-//        let fetchRe = NSFetchRequest(entityName: "Reminder")
-//        let completedReminderSort = NSSortDescriptor (key:"completed", ascending:true)
-//        fetchRe.sortDescriptors = [completedReminderSort]
-        
         do{
             let fetchResults = try managedObjectContext.executeFetchRequest(fetch) as! [Category]
             categoryList = fetchResults
-            
-//            let fetchReminders = try managedObjectContext.executeFetchRequest(fetchRe) as! [Reminder]
-//            let remindersss = fetchReminders
-//            for re in remindersss {
-//                print(re.title)
-//            }
         }catch{
             fatalError("Failed to fetch category information: \(error)")
         }
     }
     
     func addCategory(category: Category) {
-//        var newCategory = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: managedObjectContext) as? Category
-//        newCategory = category
-//        let newIndexPath = NSIndexPath(forRow: categoryList.count, inSection: 0)
         categoryList.append(category)
-//        tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         do{
             try managedObjectContext.save()
         }catch{
             fatalError("Failure to save context: \(error)")
         }
-
     }
     
     override func didReceiveMemoryWarning() {
@@ -106,12 +87,6 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
     
     // initilatise values for CategoryMapAnnotationController
     func iniMapAnnotationView(){
-        // pass the categoryList to mapview
-        
-        //let tabBarController = self.window?.rootViewController as! UITabBarController
-        //        let categoryViewController = tabBarController.viewControllers![0] as? CategoryViewController
-
-        // why do I need to use childViewControllers here?
         let mapAnotationController = self.tabBarController?.viewControllers![1].childViewControllers[0] as! CategoryMapAnnotationController
         mapAnotationController.categoryList = self.categoryList
         mapAnotationController.managedObjectContext = self.managedObjectContext
@@ -119,14 +94,6 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
         mapAnotationController.clearMonitoredRegions()
         mapAnotationController.startMonitorCategoryRegions()
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
 
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -144,23 +111,6 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
             }
         }
     }
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

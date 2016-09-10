@@ -57,8 +57,6 @@ class CategoryMapController: UIViewController, MKMapViewDelegate, CLLocationMana
     @IBOutlet var mapView: MKMapView!
     
     @IBAction func addLocation(sender: AnyObject) {
-//        let locationName = searchBar.text
-//        self.setLocationDelegate?.setLocation(locatio<#T##Double#>nName, longitude: <#T##Double#>, latitude: )
         self.navigationController?.popViewControllerAnimated(true)
     }
    
@@ -105,23 +103,11 @@ class CategoryMapController: UIViewController, MKMapViewDelegate, CLLocationMana
         }
         // MKCoordinateRegion: A structure that defines which portion of the map to display
         // MKCoordinateSpan: A structure that defines the area spanned by a map region
-        // Q: why when the latitudeDelta becomes bigger, the zoom level becomes low?
-        // Q: can't look for current location for simulator?
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta:0.2,longitudeDelta:0.2))
         self.mapView.setRegion(region, animated: true)
         self.locationManager.stopUpdatingLocation()
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     // Helper function to produce an alert for the user
     func showAlertWithDismiss(title:String, message:String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)

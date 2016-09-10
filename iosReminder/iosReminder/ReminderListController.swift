@@ -17,8 +17,6 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Q: create a new NSArray or the reference of previou object
-//        reminders = categoryToView.reminders?.allObjects
         getSortedReminders()
         tableView.tableFooterView = UIView()
     }
@@ -100,12 +98,6 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
     
     // initilatise values for CategoryMapAnnotationController
     func iniMonitoredCategoryRegions(){
-        // pass the categoryList to mapview
-        
-        //let tabBarController = self.window?.rootViewController as! UITabBarController
-        //        let categoryViewController = tabBarController.viewControllers![0] as? CategoryViewController
-        
-        // why do I need to use childViewControllers here?
         let mapAnotationController = self.tabBarController?.viewControllers![1].childViewControllers[0] as! CategoryMapAnnotationController
         // If user does not enter this view controller, the monitoried regions' reminder information will not update if user update/add/delete a reminder
         mapAnotationController.clearMonitoredRegions()
@@ -114,12 +106,9 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
 
     
     func addReminder(reminder: Reminder) {
-//        let newIndexPath = NSIndexPath(forRow: categoryToView.reminders!.count, inSection: 1)
         let newSet = NSMutableSet(set: categoryToView.reminders!)
         newSet.addObject(reminder)
         categoryToView.reminders = newSet
-//        categoryList.append(category)
-//        tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         do{
             try managedObjectContext!.save()
         }catch{
@@ -148,14 +137,6 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
         }
     }
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if( indexPath.section == 1){
@@ -181,31 +162,5 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
             }
         }
     }
-
-    // TODO: TODOLIST
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

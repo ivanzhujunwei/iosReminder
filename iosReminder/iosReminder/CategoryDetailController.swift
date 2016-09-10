@@ -27,7 +27,7 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
     var isAddCategory : Bool?
     
     var radiuses :[String] = ["50m","250m","1000m"]
-    //  var colors:[CategoryColor]?
+
     // section index
     let titleSection = 0
     let locationSection = 1
@@ -231,72 +231,11 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
         }
     }
     
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        // reference: www.youtube.com/watch?v=VWgr_wNtGPM
-        //        let previousIndexpath = selectedIndexPath
-        //        // if the indexpath is clicked, it should be cllopased
-        //        if indexPath ==  selectedIndexPath {
-        //            selectedIndexPath = nil
-        //        }else{
-        //            selectedIndexPath = indexPath
-        //        }
-        //        // figure out which indexPath should be reload
-        //        var indexPaths : Array<NSIndexPath> = []
-        //        if let previous =  previousIndexpath{
-        //            indexPaths += [previous]
-        //        }
-        //        if let current = selectedIndexPath {
-        //            indexPaths += [current]
-        //        }
-        //        if indexPaths.count > 0{
-        //            tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Automatic)
-        //        }
-    }
-    /*
-     // Override to support editing the table view.
-     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-     if editingStyle == .Delete {
-     // Delete the row from the data source
-     
-     
-     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-     } else if editingStyle == .Insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }*/
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    // MARK: - Navigation
-    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "searchLocationSegue" {
-            //            let viewCategoryController = segue.destinationViewController as! CategoryAddTableController
-            //            viewCategoryController.managedObjectContext = self.managedObjectContext
-            //            viewCategoryController.addCategoryDelegate = self
             let mapController = segue.destinationViewController as! CategoryMapController
             mapController.setLocationDelegate = self
             if (isAddCategory == false) {

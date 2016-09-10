@@ -17,14 +17,10 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
     var managedObjectContext: NSManagedObjectContext?
     // get values from first tab controller
     var categoryList: [Category]?
-//    var geofences : [CLRegion]?
     
     let locationManager = CLLocationManager()
     let geocoder = CLGeocoder()
     
-//    required init?(coder aDecoder:NSCoder){
-//        super.init(coder: aDecoder)
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +32,6 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
         // Uses description from NSLocationAlwaysUsageDescription in Info.plist
         locationManager.requestAlwaysAuthorization()
         // when I put the code here, the categoryViewController is nil
-//        let categoryViewController = self.tabBarController!.viewControllers![0] as? CategoryViewController
         self.locationManager.startUpdatingLocation()
         self.mapView.showsUserLocation = true
     }
@@ -72,8 +67,6 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
         // remove previous radius circles
         mapView.removeOverlays(self.mapView.overlays)
         
-//        let categoryListController = self.tabBarController?.viewControllers![0].childViewControllers[0] as! CategoryViewController
-//        self.categoryList = categoryListController.categoryList
         for cate in categoryList!{
             // if the location information is not null
             if (cate.latitude != nil && cate.longitude != nil){
@@ -86,14 +79,6 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
                 let circle = MKCircle(centerCoordinate: coordinate, radius: cate.getRadius())
                 self.mapView.setRegion(MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)), animated: true)
                 mapView.addOverlay(circle)
-                // add monitoring circules
-//                print("---add annotation --")
-//                let message = cate.generateNotifyMessage()
-//                print(cate.title!+" : " + message)
-//                let geofence = CLCircularRegion(center: coordinate, radius: cate.getRadius(), identifier: message)
-//                geofences?.append(geofence)
-//                print("---end annotation --")
-//                print("\n")
             }
         }
     }
@@ -115,25 +100,7 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
         // Notify the user when they have entered a region
         let title = "Arrived at Category Map"
-//        print("--- enter region --")
-//        print("message:  "+region.identifier)
-//        print("--- finish enter region --")
-//        print("\n")
         enterOrExitMessage(title, region: region)
-//        let message = "You have arrived at \(region.identifier)."
-//        if UIApplication.sharedApplication().applicationState == .Active {
-//            // App is active, show an alert
-//            let alertController = UIAlertController(title: title, message: region.identifier, preferredStyle: .Alert)
-//            let alertAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-//            alertController.addAction(alertAction)
-//            self.presentViewController(alertController, animated: true, completion: nil)
-//        } else {
-//            // App is inactive, show a notification
-//            let notification = UILocalNotification()
-//            notification.alertTitle = title
-//            notification.alertBody = region.identifier
-//            UIApplication.sharedApplication().presentLocalNotificationNow(notification)
-//        }
     }
     
     func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
@@ -184,7 +151,6 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
-//            let categoryAnnotation = view.annotation as! CategoryAnnotation
             performSegueWithIdentifier("showReminderListFromMapSegue", sender: self)
         }
     }
@@ -219,29 +185,4 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
     override func viewWillAppear(animated: Bool) {
         addAnnotations()
     }
-   /*
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        // reference: www.youtube.com/watch?v=qrdIL44T6FQ
-        let location = locations.last
-        // CLLocationCoordinate2D: A structure that contains a geographical coordinate
-        let center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
-        // MKCoordinateRegion: A structure that defines which portion of the map to display
-        // MKCoordinateSpan: A structure that defines the area spanned by a map region
-        // Q: why when the latitudeDelta becomes bigger, the zoom level becomes low?
-        // Q: can't look for current location for simulator?
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta:0.2,longitudeDelta:0.2))
-        self.mapView.setRegion(region, animated: true)
-        self.locationManager.stopUpdatingLocation()
-    }*/
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
