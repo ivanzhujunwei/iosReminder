@@ -136,7 +136,8 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
     }
     
     @IBAction func addOrEditCategory(sender: AnyObject) {
-        if (isAddCategory == true) {
+        // If category is nil, create a new one in managed object context
+        if (category == nil) {
             category = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: managedObjectContext!) as? Category
         }
         category?.title = titleCell.getText()
@@ -159,6 +160,10 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
     }
     
     func setLocation(locationName: String, longitude: Double, latitude: Double) {
+        // If category is nil, create a new one in managed object context
+        if (category == nil) {
+            category = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: managedObjectContext!) as? Category
+        }
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowInSection, inSection: locationSection)) as! LocationTableViewCell
         cell.locationDisplayField.text = locationName
         category?.location = locationName
