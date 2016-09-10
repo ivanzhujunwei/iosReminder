@@ -42,6 +42,10 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
         mapView.removeAnnotations(self.mapView.annotations)
         // remove previous radius circles
         mapView.removeOverlays(self.mapView.overlays)
+        
+        let categoryListController = self.tabBarController?.viewControllers![0].childViewControllers[0] as! CategoryViewController
+        self.categoryList = categoryListController.categoryList
+        
         for cate in categoryList!{
             // if the location information is not null
             if (cate.latitude != nil && cate.longitude != nil){
