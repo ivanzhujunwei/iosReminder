@@ -43,7 +43,14 @@ class ColorSelectController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("colorCell", forIndexPath: indexPath)
-        cell.textLabel?.text = categoryColors![indexPath.row].rawValue
+        let index = indexPath.row
+        var colorInstruction = ""
+        if index == 0{
+            colorInstruction = " (Emergency)"
+        } else if index == (categoryColors!.count) - 1 {
+            colorInstruction = " (Not Emergency)"
+        }
+        cell.textLabel?.text = categoryColors![indexPath.row].rawValue + colorInstruction
         cell.textLabel?.textColor = categoryColors![indexPath.row].color
         return cell
     }

@@ -12,16 +12,24 @@ import CoreData
 class ReminderListController: UITableViewController, AddReminderDelegate {
     
     var categoryToView: Category!
-//    var reminders: NSArray!
+    var reminderList: [Reminder]!
     var managedObjectContext: NSManagedObjectContext?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Q: create a new NSArray or the reference of previou object
 //        reminders = categoryToView.reminders?.allObjects
+        getSortedReminders()
         tableView.tableFooterView = UIView()
     }
 
+    func getSortedReminders(){
+        let completedReminderSort = NSSortDescriptor (key:"completed", ascending:true)
+        let dueDateReminderSort = NSSortDescriptor (key:"dueDate", ascending: false)
+        let reminderSorts = [completedReminderSort,dueDateReminderSort]
+        reminderList = categoryToView.reminders?.sortedArrayUsingDescriptors(reminderSorts) as! [Reminder]
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -35,7 +43,7 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
         case 0: return 1
-        case 1: return (categoryToView.reminders?.count)!
+        case 1: return (reminderList?.count)!
         default: return 0
         }
     }
@@ -51,19 +59,28 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
         }
         else{
             let cell = tableView.dequeueReusableCellWithIdentifier("reminderCell", forIndexPath: indexPath)
-            let rlist = categoryToView.reminders?.allObjects
-            let reminder: Reminder = rlist![indexPath.row] as! Reminder
+            let reminder: Reminder = reminderList[indexPath.row]
             cell.textLabel?.text = reminder.title
-            // when the reminder is due, it should display in red
-            let currentDate = NSDate()
-            let compare = reminder.dueDate?.compare(currentDate)
-            // if the reminder is due
-            if compare == NSComparisonResult.OrderedAscending {
+            if isRedReminder(reminder) {
                 cell.textLabel?.textColor = UIColor.redColor()
             }else{
                 cell.textLabel?.textColor = UIColor.blackColor()
             }
             return cell
+        }
+    }
+    
+    // There are 2 conditions when a reminder should display in red
+    // #1: the reminder is over due
+    // #2: the reminder is not completed
+    func isRedReminder(reminder: Reminder) -> Bool{
+        let currentDate = NSDate()
+        let compare = reminder.dueDate?.compare(currentDate)
+        // if the reminder is due
+        if compare == NSComparisonResult.OrderedAscending && !Bool(reminder.completed!) {
+            return true
+        }else {
+            return false
         }
     }
     
@@ -76,6 +93,7 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        getSortedReminders()
         self.tableView.reloadData()
     }
     
@@ -109,7 +127,7 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
         } else if segue.identifier == "viewReminderSegue" {
             let viewReminderController = segue.destinationViewController as! ReminderAddController
             let indexPath = tableView.indexPathForSelectedRow
-            viewReminderController.reminder = categoryToView.reminders?.allObjects[indexPath!.row] as? Reminder
+            viewReminderController.reminder = reminderList[indexPath!.row]
             viewReminderController.currentCategory = self.categoryToView
         }
     }
@@ -127,8 +145,9 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
         if( indexPath.section == 1){
             // Delete the row from the data source
             if editingStyle == .Delete {
-                let rlist = categoryToView.reminders?.allObjects
-                let reminder = rlist![indexPath.row] as! NSManagedObject
+                let reminder = reminderList![indexPath.row] as NSManagedObject
+                // Delete the reminder from sorted array
+                reminderList.removeAtIndex(indexPath.row)
                 // Delete the object from object context
                 managedObjectContext!.deleteObject(reminder)
                 // Delete the reminder from the category
@@ -146,6 +165,7 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
         }
     }
 
+    // TODO: TODOLIST
     /*
     // Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
