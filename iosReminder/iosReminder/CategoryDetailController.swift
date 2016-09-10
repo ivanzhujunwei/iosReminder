@@ -51,20 +51,28 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
         // remove blank rows
         tableView.tableFooterView = UIView()
         initCells()
-        // Connect data:
-        // self.picker.delegate = self
-        // self.picker.dataSource = self
         // the added category
         if category == nil {
             isAddCategory = true
-            category = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: managedObjectContext!) as? Category
         }else{
             isAddCategory = false
             // initialise edit information
             initEditInfo()
         }
+        // add listener to notify switch to control "arriveOrLeave" segment enabled or not
+        notifyCell.switchNotify.addTarget(self, action: #selector(CategoryAddTableController.switchChanged), forControlEvents: UIControlEvents.ValueChanged)
+        
     }
     
+    // Once the switch turn off, disable segment
+    func switchChanged(toggle: UISwitch) {
+        if toggle.on {
+            whenCell.whenSegment.enabled = true
+        }else{
+            whenCell.whenSegment.enabled = false
+        }
+    }
+
     // Initialise the cells in different section of this tableView
     func initCells(){
         titleCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowInSection, inSection: titleSection)) as! TextinputTableViewCell
@@ -73,6 +81,11 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
         notifyCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowInSection, inSection: notifySection)) as! ToggleTableViewCell
         colorCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowInSection, inSection: colorSection)) as! CategoryTableViewCell
         whenCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowInSection, inSection: whenSection)) as! SegementTableViewCell
+        // initialize default category radius
+        radiusCell.radiusDisplayField.text = "1000m"
+        // initialize default category color
+        colorCell.colorDisplayField.text = CategoryColor.Red.rawValue
+        colorCell.colorDisplayField.textColor = CategoryColor.Red.color
     }
     
     // If we have been passed an item for editing, we need to modify text fields to show current values
@@ -89,12 +102,12 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
         }
     }
     
-    // delegate function: select a radius for the category
+    // Delegate function: select a radius for the category.
     func selectRadius(radius: String) {
         radiusCell.radiusDisplayField.text = radius
     }
     
-    // delegate function: select a color for the category
+    // Delegate function: select a color for the category.
     func selectColor(color: CategoryColor) {
         colorCell.colorDisplayField.textColor = color.color
         colorCell.colorDisplayField.text = color.rawValue
@@ -123,10 +136,14 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
     }
     
     @IBAction func addOrEditCategory(sender: AnyObject) {
+        if (isAddCategory == true) {
+            category = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: managedObjectContext!) as? Category
+        }
         category?.title = titleCell.getText()
         category?.location = locationCell.locationDisplayField.text
         category?.radius =  radiusCell.getRadiusNumber()
         category?.color = colorCell.colorDisplayField.text
+        category?.priority = CategoryColor(rawValue: (category?.color)!)?.priority
         notifyCell.switchNotify.on ? (category!.toogle=true) : (category!.toogle=false)
         whenCell.whenSegment.selectedSegmentIndex == 0 ? (category!.notifyByArriveOrLeave = 0) : (category!.notifyByArriveOrLeave = 1)
         if (isAddCategory == true) {

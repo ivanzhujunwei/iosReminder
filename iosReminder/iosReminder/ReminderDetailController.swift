@@ -18,6 +18,7 @@ class ReminderAddController: UIViewController, UITextViewDelegate {
     @IBOutlet var noteField: UITextView!
     @IBOutlet var titleField: UITextField!
     @IBOutlet var dueDateField: UITextField!
+    @IBOutlet var completedSwitch: UISwitch!
     
     var dueDateIntime: NSDate?
     
@@ -46,13 +47,17 @@ class ReminderAddController: UIViewController, UITextViewDelegate {
     
     // add a reminder to a category
     @IBAction func addOrEditReminder(sender: AnyObject) {
+        if isAddReminder == true {
+            reminder = NSEntityDescription.insertNewObjectForEntityForName("Reminder", inManagedObjectContext: managedObjectContext!) as? Reminder
+        }
         reminder?.title = self.titleField.text
         reminder?.note = self.noteField.text
+        // if completedSwitch is on, reminder's completed state is completed
+        self.completedSwitch.on ? (reminder!.completed=true) : (reminder!.completed=false)
         // if due date changed
         if self.dueDateIntime != nil {
             reminder?.dueDate = self.dueDateIntime
         }
-
         let remindersCollection = currentCategory?.valueForKeyPath("reminders") as! NSMutableSet
         // bind the currentCategory to this reminder because reminder has a attribute which is cateogry
         reminder?.category = currentCategory
@@ -74,17 +79,11 @@ class ReminderAddController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.noteField.delegate = self
-        self.noteField.layer.borderWidth = 0.5
-        self.titleField.layer.borderWidth = 0.5
-        self.dueDateField.layer.borderWidth = 0.5
-        self.dueDateField.layer.borderColor = UIColor.blackColor().CGColor
-        self.noteField.layer.borderColor = UIColor.blackColor().CGColor
-        self.titleField.layer.borderColor = UIColor.blackColor().CGColor
+        setBorderColors()
         generatePlacehoderForNote()
         if reminder == nil {
             // add reminder
             isAddReminder = true
-            reminder = NSEntityDescription.insertNewObjectForEntityForName("Reminder", inManagedObjectContext: managedObjectContext!) as? Reminder
         }else{
             // edit reminder
             isAddReminder = false
@@ -92,10 +91,21 @@ class ReminderAddController: UIViewController, UITextViewDelegate {
         }
     }
     
+    // set border and color for noteFiled, dueDateField and titleField
+    func setBorderColors(){
+        self.titleField.layer.borderWidth = 0.5
+        self.titleField.layer.borderColor = UIColor.blackColor().CGColor
+        self.noteField.layer.borderWidth = 0.5
+        self.noteField.layer.borderColor = UIColor.blackColor().CGColor
+        self.dueDateField.layer.borderWidth = 0.5
+        self.dueDateField.layer.borderColor = UIColor.blackColor().CGColor
+    }
+    
     func initEditInfo(reminder: Reminder){
         titleField.text = reminder.title
         dueDateField.text = getDueDateText(reminder.dueDate!)
         noteField.text = reminder.note
+        (reminder.completed==true) ? (completedSwitch.on = true) : (completedSwitch.on = false)
     }
     
     // when the text field content changes
