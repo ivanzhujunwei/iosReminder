@@ -103,7 +103,9 @@ class ReminderAddController: UIViewController, UITextViewDelegate {
     
     func initEditInfo(reminder: Reminder){
         titleField.text = reminder.title
-        dueDateField.text = getDueDateText(reminder.dueDate!)
+        if reminder.dueDate != nil {
+            dueDateField.text = getDueDateText(reminder.dueDate!)
+        }
         noteField.text = reminder.note
         (reminder.completed==true) ? (completedSwitch.on = true) : (completedSwitch.on = false)
     }
