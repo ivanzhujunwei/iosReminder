@@ -1,5 +1,6 @@
 //
 //  CategoryAnnotation.swift
+//  Custom annotation which contains the catgory information
 //  iosReminder
 //
 //  Created by zjw on 7/09/2016.
@@ -9,6 +10,8 @@
 import Foundation
 import MapKit
 
+// This is a custom annotaion which has category attribute
+// When annotations are generated, category information is stored inside
 class CategoryAnnotation: NSObject, MKAnnotation{
     private var coord: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     

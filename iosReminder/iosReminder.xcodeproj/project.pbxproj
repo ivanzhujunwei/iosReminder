@@ -101,12 +101,12 @@
 				60FCC6461D75B3CB00B8DD39 /* CoreDataModels */,
 				60FCC6491D75B5D700B8DD39 /* TableViewCells */,
 				60FCC6301D752F9600B8DD39 /* AppDelegate.swift */,
+				607BCC951D7FFD9900AA7985 /* CategoryAnnotation.swift */,
 				60FCC6341D752F9600B8DD39 /* Main.storyboard */,
 				60FCC63A1D752F9600B8DD39 /* Assets.xcassets */,
 				60FCC63C1D752F9600B8DD39 /* LaunchScreen.storyboard */,
 				60FCC63F1D752F9600B8DD39 /* Info.plist */,
 				60FCC6371D752F9600B8DD39 /* iosReminder.xcdatamodeld */,
-				607BCC951D7FFD9900AA7985 /* CategoryAnnotation.swift */,
 			);
 			path = iosReminder;
 			sourceTree = "<group>";

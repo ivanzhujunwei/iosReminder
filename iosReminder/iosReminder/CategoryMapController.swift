@@ -9,20 +9,23 @@
 import UIKit
 import MapKit
 
+// Search a location delegate
 protocol SetLocationDelegate{
     func setLocation(locationName:String,longitude:Double,latitude:Double)
 }
 
+//  This viewController displays a map and searchBar for user to search a location for a category
 class CategoryMapController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet var searchBar: UISearchBar!
     
+    // Record the location which is edied or added
     var location :CLLocationCoordinate2D?
-//    var isAddLocation : Bool?
     let locationManager = CLLocationManager()
     let geocoder = CLGeocoder()
     var setLocationDelegate: SetLocationDelegate?
     
+    // When user searches a location
     func searchBarSearchButtonClicked(searchBar: UISearchBar){
         searchBar.resignFirstResponder()
         if let location = searchBar.text where !location.isEmpty{
@@ -84,17 +87,18 @@ class CategoryMapController: UIViewController, MKMapViewDelegate, CLLocationMana
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         var center = CLLocationCoordinate2D()
+        // If the location is nil which means user is adding a new location for the category
         if (location == nil){
             // reference: www.youtube.com/watch?v=qrdIL44T6FQ
             let location = locations.last
             // CLLocationCoordinate2D: A structure that contains a geographical coordinate
             center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
         }else{
+            // If the location is not nil, then add an annotation for the category's location
             center = self.location!
             // Add marker for each location
             let mapAnnotation = CategoryAnnotation()

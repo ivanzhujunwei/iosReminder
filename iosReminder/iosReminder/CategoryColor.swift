@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+// The CategoryColor provides UIColor and priority for a category
 enum CategoryColor : String{
     
     // Color enum

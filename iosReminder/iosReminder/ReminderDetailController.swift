@@ -9,10 +9,12 @@
 import UIKit
 import CoreData
 
+// Add reminder delegate
 protocol  AddReminderDelegate {
     func addReminder(reminder: Reminder)
 }
 
+//  This viewController adds or edits a reminder
 class ReminderAddController: UIViewController, UITextViewDelegate {
 
     @IBOutlet var noteField: UITextView!
@@ -23,15 +25,18 @@ class ReminderAddController: UIViewController, UITextViewDelegate {
     var dueDateIntime: NSDate?
     
     var placeholderNote = UILabel()
-    
+    // The reminder which is going to be added or edited
     var reminder: Reminder?
+    // Identify it is going to add or edit a reminder. TRUE: add ; FALSE: edit
     var isAddReminder: Bool?
+    // The catgory that the reminder belongs to
     var currentCategory: Category?
-    
-    var managedObjectContext: NSManagedObjectContext?
+    // Delegate: add a reminder
     var addReminderDelegate: AddReminderDelegate?
     
-    // click on the dueDateField
+    var managedObjectContext: NSManagedObjectContext?
+    
+    // Click on the dueDateField and trigger a datePickerView
     @IBAction func dueDateEdit(sender: UITextField) {
         let datePickerView: UIDatePicker = UIDatePicker()
         datePickerView.datePickerMode = UIDatePickerMode.DateAndTime
@@ -45,26 +50,27 @@ class ReminderAddController: UIViewController, UITextViewDelegate {
         dueDateIntime = sender.date
     }
     
-    // add a reminder to a category
+    // Add or edit a reminder to belonged category
     @IBAction func addOrEditReminder(sender: AnyObject) {
-        if isAddReminder == true {
-            reminder = NSEntityDescription.insertNewObjectForEntityForName("Reminder", inManagedObjectContext: managedObjectContext!) as? Reminder
-        }
+        // Reminder title can not be empty
         if titleField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) == ""
         {
             showAlertWithDismiss("Invalid input", message: "Category title can not be empty")
             return
         }
+        if isAddReminder == true {
+            reminder = NSEntityDescription.insertNewObjectForEntityForName("Reminder", inManagedObjectContext: managedObjectContext!) as? Reminder
+        }
         reminder?.title = self.titleField.text
         reminder?.note = self.noteField.text
-        // if completedSwitch is on, reminder's completed state is completed
+        // If completedSwitch is on, reminder's completed state is completed
         self.completedSwitch.on ? (reminder!.completed=true) : (reminder!.completed=false)
-        // if due date changed
+        // If due date changed and not nil, then pass it to reminder's duedate
         if self.dueDateIntime != nil {
             reminder?.dueDate = self.dueDateIntime
         }
         let remindersCollection = currentCategory?.valueForKeyPath("reminders") as! NSMutableSet
-        // bind the currentCategory to this reminder because reminder has a attribute which is cateogry
+        // Bind the currentCategory to this reminder because reminder has a attribute which is cateogry
         reminder?.category = currentCategory
         remindersCollection.addObject(reminder!)
         currentCategory?.reminders? = remindersCollection
@@ -102,7 +108,7 @@ class ReminderAddController: UIViewController, UITextViewDelegate {
         }
     }
     
-    // set border and color for noteFiled, dueDateField and titleField
+    // Set border and color for noteFiled, dueDateField and titleField
     func setBorderColors(){
         self.titleField.layer.borderWidth = 0.5
         self.titleField.layer.borderColor = UIColor.blackColor().CGColor
@@ -112,6 +118,7 @@ class ReminderAddController: UIViewController, UITextViewDelegate {
         self.dueDateField.layer.borderColor = UIColor.blackColor().CGColor
     }
     
+    // Initialise reminder's information
     func initEditInfo(reminder: Reminder){
         titleField.text = reminder.title
         if reminder.dueDate != nil {
@@ -121,7 +128,7 @@ class ReminderAddController: UIViewController, UITextViewDelegate {
         (reminder.completed==true) ? (completedSwitch.on = true) : (completedSwitch.on = false)
     }
     
-    // when the text field content changes
+    // When the note textView content is not empty, hide placeHolder
     func textViewDidChange(textView: UITextView) {
         if noteField.text.isEmpty {
             placeholderNote.hidden = false
@@ -130,10 +137,10 @@ class ReminderAddController: UIViewController, UITextViewDelegate {
         }
     }
     
-    // generate a placehoder for note textView
+    // Generate a placehoder for note textView
     func generatePlacehoderForNote(){
-        // reference: www.youtube.com/watch?v=ixJhbYvJUTE
         // create placeholder programmatically
+        // reference: www.youtube.com/watch?v=ixJhbYvJUTE
         // use "self.view.size" computing for different screen size
         let placeholderX : CGFloat = self.view.frame.size.width / 75
         let placeholderY : CGFloat = 0
@@ -148,7 +155,7 @@ class ReminderAddController: UIViewController, UITextViewDelegate {
         noteField.addSubview(placeholderNote)
     }
     
-    // get due time in a format text
+    // Get due time in a format text
     func getDueDateText(date: NSDate) -> String{
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle

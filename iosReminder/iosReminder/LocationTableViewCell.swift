@@ -8,6 +8,7 @@
 
 import UIKit
 
+// This tableviewCell provides location cell in CategoryDetailController
 class LocationTableViewCell: UITableViewCell {
 
     @IBOutlet var locationDisplayField: UILabel!

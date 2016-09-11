@@ -8,6 +8,7 @@
 
 import UIKit
 
+// This tableviewCell provides arrivOrLeave(segment) cell in CategoryDetailController
 class SegementTableViewCell: UITableViewCell {
 
     @IBOutlet var whenSegment: UISegmentedControl!

@@ -10,17 +10,17 @@ import UIKit
 import CoreData
 import MapKit
 
+//  This is a map category viewController, each annotation in map represents a category, users can click an annotation to view the category information.
 class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet var mapView: MKMapView!
     
     var managedObjectContext: NSManagedObjectContext?
-    // get values from first tab controller
+    
+    // The categoryList from CategoryViewController stored in Core Data
     var categoryList: [Category]?
     
     let locationManager = CLLocationManager()
-    let geocoder = CLGeocoder()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,23 +36,36 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
         self.mapView.showsUserLocation = true
     }
     
+    // Update monitored regions
+    // Here is the situations when monitored regions need to be updated
+    // #1 Add/update/delete a category
+    // #2 Add/update/delete a reminder
+    func updateMonitoredRegions(){
+        clearMonitoredRegions()
+        startMonitorCategoryRegions()
+    }
+    
+    // Clear monitored regions
     func clearMonitoredRegions(){
         for region in locationManager.monitoredRegions {
-            print("Stopping monitoring region: " + region.identifier)
             locationManager.stopMonitoringForRegion(region)
         }
     }
     
+    // Start monitored regions for categories
     func startMonitorCategoryRegions(){
         for cate in categoryList!{
             let coordinate = cate.getCoordinate()
             let geofence = CLCircularRegion(center: coordinate, radius: cate.getRadius(), identifier: cate.generateNotifyMessage())
-            // If the notification of this category is toggle on, then when user enter or exit region, a alert/ notification will be sent
+            // If the notification of this category is toggle on, then when user enter or exit region, a alert / notification will be sent
             if Bool(cate.toogle!){
+                // Notify when arrive
                 if cate.notifyByArriveOrLeave == 0 {
                     geofence.notifyOnEntry = true
                     geofence.notifyOnExit = false
-                }else{
+                }
+                // Notify when leave
+                else{
                     geofence.notifyOnEntry = false
                     geofence.notifyOnExit = true
                 }
@@ -61,14 +74,15 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
         }
     }
     
+    // Add annotations on map
     func addAnnotations(){
-        // remove previous annotations before add annotations
+        // Remove previous annotations before add annotations
         mapView.removeAnnotations(self.mapView.annotations)
-        // remove previous radius circles
+        // Remove previous radius circles
         mapView.removeOverlays(self.mapView.overlays)
         
         for cate in categoryList!{
-            // if the location information is not null
+            // if the location information is not nil
             if (cate.latitude != nil && cate.longitude != nil){
                 let coordinate = cate.getCoordinate()
                 // add marker for each location
@@ -104,11 +118,13 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
     }
     
     func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+        // Notify the user when they have leaved a region
         let title = "Exited from Category Map"
         enterOrExitMessage(title, region: region)
         
     }
     
+    // Generate an alert/notification message when arriving/leaving a region
     func enterOrExitMessage(title: String, region: CLRegion){
         if UIApplication.sharedApplication().applicationState == .Active {
             // App is active, show an alert
@@ -150,12 +166,14 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
     }
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        // When the annotaion is tapped, then perform the segue
         if control == view.rightCalloutAccessoryView {
             performSegueWithIdentifier("showReminderListFromMapSegue", sender: self)
         }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // When tap the annotation, ReminderListController will display
         if segue.identifier == "showReminderListFromMapSegue" {
             let reminderListController = segue.destinationViewController as! ReminderListController
             let ann = self.mapView.selectedAnnotations[0] as! CategoryAnnotation

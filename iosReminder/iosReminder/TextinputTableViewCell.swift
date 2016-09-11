@@ -8,6 +8,7 @@
 
 import UIKit
 
+// This tableviewCell provides title cell in CategoryDetailController
 class TextinputTableViewCell: UITableViewCell {
 
     @IBOutlet var categoryTitleText: UITextField!

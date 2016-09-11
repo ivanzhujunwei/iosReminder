@@ -8,10 +8,9 @@
 
 import UIKit
 
+// This tableviewCell provides color cell in CategoryDetailController
 class CategoryTableViewCell: UITableViewCell {
 
-//    @IBOutlet var textDisplayField: UILabel!
-    @IBOutlet var radiusDisplayField: UILabel!
     @IBOutlet var colorDisplayField: UILabel!
     
     

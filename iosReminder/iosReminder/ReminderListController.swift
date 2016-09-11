@@ -9,23 +9,31 @@
 import UIKit
 import CoreData
 
+//  This viewController diplays a category and its all related reminders in order
 class ReminderListController: UITableViewController, AddReminderDelegate {
     
+    // The category which is being viewed
     var categoryToView: Category!
+    // The category's reminder list
     var reminderList: [Reminder]!
     var managedObjectContext: NSManagedObjectContext?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        getSortedReminders()
+        // Initialise reminders in order
+        reminderList = getSortedReminders()
+        // Delete blank rows
         tableView.tableFooterView = UIView()
     }
 
-    func getSortedReminders(){
+    // Return sorted reminders, two factors affect the sort result
+    // #1: Firstly, sorted by 'completed' state, completed reminders will display at the bottom of list
+    // #2: Secondly, sorted by 'dueDate' value in descending order
+    func getSortedReminders() -> [Reminder]{
         let completedReminderSort = NSSortDescriptor (key:"completed", ascending:true)
         let dueDateReminderSort = NSSortDescriptor (key:"dueDate", ascending: false)
         let reminderSorts = [completedReminderSort,dueDateReminderSort]
-        reminderList = categoryToView.reminders?.sortedArrayUsingDescriptors(reminderSorts) as! [Reminder]
+        return categoryToView.reminders?.sortedArrayUsingDescriptors(reminderSorts) as! [Reminder]
     }
     
     override func didReceiveMemoryWarning() {
@@ -40,23 +48,29 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
-        case 0: return 1
-        case 1: return (reminderList?.count)!
-        default: return 0
+            // First section has only 1 row which is the categoryToView
+            case 0: return 1
+            // Second section's row number is the length of reminderList
+            case 1: return (reminderList?.count)!
+            default: return 0
         }
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        // For first section
         if indexPath.section == 0
         {
             let cell = tableView.dequeueReusableCellWithIdentifier("categoryBriefCell", forIndexPath: indexPath)
+            // Configure cell's values
             cell.textLabel?.text = categoryToView.title
             cell.detailTextLabel?.text = categoryToView.location
             cell.textLabel?.textColor = CategoryColor(rawValue: categoryToView!.color!)?.color
             return cell
         }
+        // For second section
         else{
             let cell = tableView.dequeueReusableCellWithIdentifier("reminderCell", forIndexPath: indexPath)
+            // Configure cell's values
             let reminder: Reminder = reminderList[indexPath.row]
             cell.textLabel?.text = reminder.title
             if isRedReminder(reminder) {
@@ -74,7 +88,7 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
     func isRedReminder(reminder: Reminder) -> Bool{
         let currentDate = NSDate()
         let compare = reminder.dueDate?.compare(currentDate)
-        // if the reminder is due
+        // if the reminder is due and not completed
         if compare == NSComparisonResult.OrderedAscending && !Bool(reminder.completed!) {
             return true
         }else {
@@ -83,6 +97,7 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
     }
     
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        // Set the foot height for first section
         if section == 0 {
             return 20
         }
@@ -91,23 +106,25 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        getSortedReminders()
+        // Resort the reminders
+        reminderList = getSortedReminders()
         self.tableView.reloadData()
-        iniMonitoredCategoryRegions()
+        // Update monitored regions
+        updateMonitoredCategoryRegions()
     }
     
-    // initilatise values for CategoryMapAnnotationController
-    func iniMonitoredCategoryRegions(){
+    // Update monitored regions
+    func updateMonitoredCategoryRegions(){
         let mapAnotationController = self.tabBarController?.viewControllers![1].childViewControllers[0] as! CategoryMapAnnotationController
-        // If user does not enter this view controller, the monitoried regions' reminder information will not update if user update/add/delete a reminder
-        mapAnotationController.clearMonitoredRegions()
-        mapAnotationController.startMonitorCategoryRegions()
+        mapAnotationController.updateMonitoredRegions()
     }
 
-    
+    // Delegate: add a reminder
     func addReminder(reminder: Reminder) {
+        // Get current remidners
         let newSet = NSMutableSet(set: categoryToView.reminders!)
         newSet.addObject(reminder)
+        // Reset the categoryToView's reminders
         categoryToView.reminders = newSet
         do{
             try managedObjectContext!.save()
@@ -118,21 +135,29 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+         // When adding a reminder, ReminderAddController is going to be displayed
         if segue.identifier == "addReminderSegue" {
             let addReminderController = segue.destinationViewController as! ReminderAddController
             addReminderController.managedObjectContext = self.managedObjectContext
+            // Pass current viewing category to ReminderAddController
             addReminderController.currentCategory = self.categoryToView
             addReminderController.addReminderDelegate = self
-            
-        } else if segue.identifier == "editCategorySegue" {
+        }
+        // When editing a category, CategoryAddTableController is going to be displayed
+        else if segue.identifier == "editCategorySegue" {
             let editCategoryController = segue.destinationViewController as! CategoryAddTableController
             editCategoryController.managedObjectContext = self.managedObjectContext
+            // Pass current viewing category to CategoryAddTableController
             editCategoryController.category = self.categoryToView
-            
-        } else if segue.identifier == "viewReminderSegue" {
+        }
+        // When editing a reminder, ReminderAddController is going to be displayed
+        else if segue.identifier == "viewReminderSegue" {
             let viewReminderController = segue.destinationViewController as! ReminderAddController
             let indexPath = tableView.indexPathForSelectedRow
+            viewReminderController.managedObjectContext = self.managedObjectContext
+            // Get the selected reminder and pass it to destination ViewController
             viewReminderController.reminder = reminderList[indexPath!.row]
+            // Pass current viewing category to ReminderAddController
             viewReminderController.currentCategory = self.categoryToView
         }
     }
@@ -152,10 +177,11 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
                 newSet.removeObject(reminder)
                 categoryToView.reminders = newSet
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-                // save the managedObjectContext
                 do{
+                    // save the managedObjectContext
                     try self.managedObjectContext!.save()
-                    iniMonitoredCategoryRegions()
+                    // Update monitored regions
+                    updateMonitoredCategoryRegions()
                 }catch let error {
                     print("Could not save reminder Deletion \(error)")
                 }

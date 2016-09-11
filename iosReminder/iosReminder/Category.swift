@@ -12,37 +12,38 @@ import MapKit
 
 class Category: NSManagedObject {
 
-// Insert code here to add functionality to your managed object subclass
-//    func addReminder(reminder:Reminder) {
-//        self.reminders?.allObjects.
-//    }
+    // Return the annotation title when tapping a annotation
     func getAnnotationPopupTitle() -> String{
         return self.title! + " " + String(self.radius!) + "m"
     }
     
+    // Return the catgory's radius in double format
     func getRadius() -> Double{
         return Double(self.radius!)
     }
     
-    // return display information for "radius"
+    // Return display information for "radius"
     func displayRadius() -> String{
-        // convert to Int first to remove the zero after the decimal point, then convert to string
+        // Convert to Int first to remove the zero after the decimal point, then convert to string
         return String(Int(getRadius())) + "m"
     }
     
+    // Return category's longitude in double format
     func getLongitude() -> Double{
         return Double(self.longitude!)
     }
     
+    // Return category's latitude in double format
     func getLatitude() -> Double{
         return Double(self.latitude!)
     }
     
+    // Return category's coordinate
     func getCoordinate() -> CLLocationCoordinate2D{
         return CLLocationCoordinate2D(latitude: getLatitude(), longitude: getLongitude())
     }
     
-    // get how many reminders are imcomplete in this category
+    // Return how many reminders are imcomplete in this category
     func getInCompleteReminderCount() -> Int{
         var incompleteReminderCount = 0
         for reminder in self.reminders!{
@@ -54,6 +55,7 @@ class Category: NSManagedObject {
         return incompleteReminderCount
     }
     
+    // Return the pop up message when user has arrived or leaved a region
     func generateNotifyMessage() -> String{
         var message = ""
         if self.notifyByArriveOrLeave == 0 {

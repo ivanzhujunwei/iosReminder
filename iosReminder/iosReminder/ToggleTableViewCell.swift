@@ -8,6 +8,7 @@
 
 import UIKit
 
+// This tableviewCell provides toggle(switch) cell in CategoryDetailController
 class ToggleTableViewCell: UITableViewCell {
 
     @IBOutlet var switchNotify: UISwitch!

@@ -8,10 +8,12 @@
 
 import UIKit
 
+// Delegate: select a radius
 protocol SelectRadiusDelegate {
     func selectRadius(radius: String)
 }
 
+// This viewController provides 3 radius for choosing
 class RadiusSelectController: UITableViewController {
 
     var selectRadiusDelegate: SelectRadiusDelegate?
@@ -53,8 +55,11 @@ class RadiusSelectController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // Get selected row index
         let indexPath = tableView.indexPathForSelectedRow!
+        // Get selected cell
         let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
+        // Use delegate to set radius to reminder detail viewController
         selectRadiusDelegate?.selectRadius(currentCell.textLabel!.text!)
         self.navigationController?.popViewControllerAnimated(true)
     }
