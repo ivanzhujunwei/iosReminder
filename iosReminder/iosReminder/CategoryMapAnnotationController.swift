@@ -22,17 +22,21 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
     
     let locationManager = CLLocationManager()
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        // Add notificatioin for updating monitoring regions
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateMonitoredRegions), name: "updateMonitoredRegionsNotifyId", object: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // MapsDemo
         // Setup delegation so we can respond to MapView and LocationManager events
         mapView.delegate = self
-        locationManager.delegate = self
         // Ask user for permission to use location
         // Uses description from NSLocationAlwaysUsageDescription in Info.plist
+        locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
-        // when I put the code here, the categoryViewController is nil
-        self.locationManager.startUpdatingLocation()
         self.mapView.showsUserLocation = true
     }
     
@@ -41,6 +45,7 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
     // #1 Add/update/delete a category
     // #2 Add/update/delete a reminder
     func updateMonitoredRegions(){
+        self.locationManager.startUpdatingLocation()
         clearMonitoredRegions()
         startMonitorCategoryRegions()
     }
@@ -55,10 +60,10 @@ class CategoryMapAnnotationController: UIViewController, MKMapViewDelegate, CLLo
     // Start monitored regions for categories
     func startMonitorCategoryRegions(){
         for cate in categoryList!{
-            let coordinate = cate.getCoordinate()
-            let geofence = CLCircularRegion(center: coordinate, radius: cate.getRadius(), identifier: cate.generateNotifyMessage())
             // If the notification of this category is toggle on, then when user enter or exit region, a alert / notification will be sent
-            if Bool(cate.toogle!){
+            if Bool(cate.toogle!) && (cate.getInCompleteReminderCount() > 0) {
+                let coordinate = cate.getCoordinate()
+                let geofence = CLCircularRegion(center: coordinate, radius: cate.getRadius(), identifier: cate.generateNotifyMessage())
                 // Notify when arrive
                 if cate.notifyByArriveOrLeave == 0 {
                     geofence.notifyOnEntry = true

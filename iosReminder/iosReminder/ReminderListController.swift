@@ -43,15 +43,16 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 3
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
-            // First section has only 1 row which is the categoryToView
+            // First and second section has only 1 row
             case 0: return 1
+            case 1: return 1
             // Second section's row number is the length of reminderList
-            case 1: return (reminderList?.count)!
+            case 2: return (reminderList?.count)!
             default: return 0
         }
     }
@@ -63,16 +64,35 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
             let cell = tableView.dequeueReusableCellWithIdentifier("categoryBriefCell", forIndexPath: indexPath)
             // Configure cell's values
             cell.textLabel?.text = categoryToView.title
-            cell.detailTextLabel?.text = categoryToView.location
+//            cell.detailTextLabel?.text = categoryToView.location
             cell.textLabel?.textColor = CategoryColor(rawValue: categoryToView!.color!)?.color
             return cell
         }
-        // For second section
+            // For second section
+        else if indexPath.section == 1{
+            let cell = tableView.dequeueReusableCellWithIdentifier("categoryInfoCell", forIndexPath: indexPath)
+            // Configure cell's values
+            let incompleteReminders = categoryToView.getInCompleteReminderCount()
+            // If there is no reminder needed to be complete, display 'All done'
+            if incompleteReminders == 0{
+                cell.textLabel?.text = "All done"
+                // If there are some other reminders remained to be completed, then display the message
+            }else{
+                cell.textLabel?.text = String(categoryToView.getInCompleteReminderCount()) + " reminder not completed at " + categoryToView.location!
+            }
+            return cell
+        }
+            // For third section
         else{
             let cell = tableView.dequeueReusableCellWithIdentifier("reminderCell", forIndexPath: indexPath)
             // Configure cell's values
             let reminder: Reminder = reminderList[indexPath.row]
-            cell.textLabel?.text = reminder.title
+            // If the reminder is completed, mark attached
+            if Bool(reminder.completed!){
+                cell.textLabel?.text = "✓ " + reminder.title!
+            }else{
+                cell.textLabel?.text = reminder.title!
+            }
             if isRedReminder(reminder) {
                 cell.textLabel?.textColor = UIColor.redColor()
             }else{
@@ -80,6 +100,14 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
             }
             return cell
         }
+    }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // Only the reminders section can has edit support
+        if indexPath.section == 2{
+            return true
+        }
+        return false
     }
     
     // There are 2 conditions when a reminder should display in red
@@ -96,13 +124,13 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
         }
     }
     
-    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        // Set the foot height for first section
-        if section == 0 {
-            return 20
-        }
-        return 0
-    }
+//    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        // Set the foot height for first section
+//        if section == 0 || section == 1{
+//            return 20
+//        }
+//        return 0
+//    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -110,14 +138,15 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
         reminderList = getSortedReminders()
         self.tableView.reloadData()
         // Update monitored regions
-        updateMonitoredCategoryRegions()
+        NSNotificationCenter.defaultCenter().postNotificationName("updateMonitoredRegionsNotifyId", object: nil)
+//        updateMonitoredCategoryRegions()
     }
     
     // Update monitored regions
-    func updateMonitoredCategoryRegions(){
-        let mapAnotationController = self.tabBarController?.viewControllers![1].childViewControllers[0] as! CategoryMapAnnotationController
-        mapAnotationController.updateMonitoredRegions()
-    }
+//    func updateMonitoredCategoryRegions(){
+//        let mapAnotationController = self.tabBarController?.viewControllers![1].childViewControllers[0] as! CategoryMapAnnotationController
+//        mapAnotationController.updateMonitoredRegions()
+//    }
 
     // Delegate: add a reminder
     func addReminder(reminder: Reminder) {
@@ -128,6 +157,7 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
         categoryToView.reminders = newSet
         do{
             try managedObjectContext!.save()
+            self.tableView.reloadData()
         }catch{
             fatalError("Failure to save context: \(error)")
         }
@@ -164,7 +194,7 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
 
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if( indexPath.section == 1){
+        if( indexPath.section == 2){
             // Delete the row from the data source
             if editingStyle == .Delete {
                 let reminder = reminderList![indexPath.row] as NSManagedObject
@@ -180,8 +210,10 @@ class ReminderListController: UITableViewController, AddReminderDelegate {
                 do{
                     // save the managedObjectContext
                     try self.managedObjectContext!.save()
+                    self.tableView.reloadData()
                     // Update monitored regions
-                    updateMonitoredCategoryRegions()
+                    NSNotificationCenter.defaultCenter().postNotificationName("updateMonitoredRegionsNotifyId", object: nil)
+//                    updateMonitoredCategoryRegions()
                 }catch let error {
                     print("Could not save reminder Deletion \(error)")
                 }

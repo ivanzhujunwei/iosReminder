@@ -105,7 +105,10 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
         mapAnotationController.categoryList = self.categoryList
         mapAnotationController.managedObjectContext = self.managedObjectContext
         // Update monitored regions
-        mapAnotationController.updateMonitoredRegions()
+//        mapAnotationController.updateMonitoredRegions()
+        // Send notifaction to notify updating monitored regions
+        NSNotificationCenter.defaultCenter().postNotificationName("updateMonitoredRegionsNotifyId", object: nil)
+
     }
 
     // Override to support editing the table view.
@@ -122,7 +125,8 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
                 // Save the managedObjectContext
                 try self.managedObjectContext.save()
                 // Update monitored regions in CategoryMapAnnotationController
-                iniMapAnnotationView()
+                NSNotificationCenter.defaultCenter().postNotificationName("updateMonitoredRegionsNotifyId", object: nil)
+//                iniMapAnnotationView()
             }catch let error {
                 print("Could not save Deletion \(error)")
             }

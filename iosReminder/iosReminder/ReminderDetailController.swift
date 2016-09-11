@@ -97,7 +97,6 @@ class ReminderAddController: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
         self.noteField.delegate = self
         setBorderColors()
-        generatePlacehoderForNote()
         if reminder == nil {
             // add reminder
             isAddReminder = true
@@ -105,6 +104,10 @@ class ReminderAddController: UIViewController, UITextViewDelegate {
             // edit reminder
             isAddReminder = false
             initEditInfo(reminder!)
+        }
+        // Only when noteField is empty, then generate the placeholder for it
+        if noteField.text.isEmpty{
+            generatePlacehoderForNote()
         }
     }
     

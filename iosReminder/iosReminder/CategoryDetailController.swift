@@ -36,9 +36,9 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
     // Define different section index in this tableView
     let titleSection = 0
     let locationSection = 1
-    let radiusSection = 2
-    let colorSection = 3
-    let notifySection = 4
+    let colorSection = 2
+    let notifySection = 3
+    let radiusSection = 4
     let whenSection = 5
     
     // every section has only one row
@@ -85,9 +85,9 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
     func initCells(){
         titleCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowInSection, inSection: titleSection)) as! TextinputTableViewCell
         locationCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowInSection, inSection: locationSection)) as! LocationTableViewCell
-        radiusCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowInSection, inSection: radiusSection)) as! RadiusTableViewCell
-        notifyCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowInSection, inSection: notifySection)) as! ToggleTableViewCell
         colorCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowInSection, inSection: colorSection)) as! CategoryTableViewCell
+        notifyCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowInSection, inSection: notifySection)) as! ToggleTableViewCell
+        radiusCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowInSection, inSection: radiusSection)) as! RadiusTableViewCell
         whenCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowInSection, inSection: whenSection)) as! SegementTableViewCell
         // Initialize default category radius which is 1000m
         radiusCell.radiusDisplayField.text = "1000m"
@@ -123,7 +123,7 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
         // If title is nil, can't save the category
         if titleCell.getText().stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) == ""
         {
-            self.showAlertWithDismiss("Invalid input", message: "Reminder title can not be empty")
+            self.showAlertWithDismiss("Invalid input", message: "Category title can not be empty")
             return
         }
         // If location is nil, can't save the category
@@ -213,17 +213,17 @@ class CategoryAddTableController: UITableViewController, SetLocationDelegate, UI
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // Return different cell for differnet section
         switch indexPath.section {
-        case 0:
+        case titleSection:
             let cell = tableView.dequeueReusableCellWithIdentifier("categoryTitleCell", forIndexPath: indexPath) as! TextinputTableViewCell
             cell.categoryTitleText.placeholder = "Title"
             return cell
-        case 1:
+        case locationSection:
             return tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath) as! LocationTableViewCell
-        case 2:
+        case radiusSection:
             return tableView.dequeueReusableCellWithIdentifier("radiusCell", forIndexPath: indexPath) as! RadiusTableViewCell
-        case 3:
+        case colorSection:
             return tableView.dequeueReusableCellWithIdentifier("colorCell", forIndexPath: indexPath) as! CategoryTableViewCell
-        case 4:
+        case notifySection:
             return tableView.dequeueReusableCellWithIdentifier("notifyCell", forIndexPath: indexPath) as! ToggleTableViewCell
         default:
             return tableView.dequeueReusableCellWithIdentifier("whenCell", forIndexPath: indexPath) as! SegementTableViewCell
