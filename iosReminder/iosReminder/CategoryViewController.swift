@@ -125,8 +125,8 @@ class CategoryViewController: UITableViewController, AddCategoryDelegate {
                 // Save the managedObjectContext
                 try self.managedObjectContext.save()
                 // Update monitored regions in CategoryMapAnnotationController
-                NSNotificationCenter.defaultCenter().postNotificationName("updateMonitoredRegionsNotifyId", object: nil)
-//                iniMapAnnotationView()
+//                NSNotificationCenter.defaultCenter().postNotificationName("updateMonitoredRegionsNotifyId", object: nil)
+                iniMapAnnotationView()
             }catch let error {
                 print("Could not save Deletion \(error)")
             }
